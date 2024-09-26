@@ -14,7 +14,7 @@ Use this template to complete your project throughout the course. Your Final Pro
 
 ## Overview {#sec-overview}
 
-TEST
+TEST: to sync with github - make changes in R, then go to GIT tab in upper right (where environment is) then select the staged box on any changes made, then press commit, add a commit message about edits, then press commit, then press push
 
 Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
 
