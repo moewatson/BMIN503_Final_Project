@@ -1,7 +1,7 @@
 ---
-title: "Your Title"
+title: "The Impact of Parental Incarceration in Childhood on Adulthood Coping Behaviors and Mental Health"
 subtitle: "BMIN503/EPID600 Final Project"
-author: "FirstName LastName"
+author: "Morgan Watson"
 format: html
 editor: visual
 number-sections: true
@@ -18,15 +18,55 @@ TEST: to sync with github - make changes in R, then go to GIT tab in upper right
 
 Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
 
+The goal of this project is to determine the association between experiencing an incarcerated parent in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and anxiety. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant coping mechanisms and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary outcomes of depression and anxiety diagnosis.
+
 ## Introduction {#sec-introduction}
 
 Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.
 
 Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.
 
+problem:
+
+significance:
+
+background to motivate problem:
+
+why interdisciplinary:
+
+what fields contribute to understanding:
+
+background related to faculty:
+
 ## Methods {#sec-methods}
 
 Describe the data used and general methodological approach used to address the problem described in the @sec-introduction. Subsequently, incorporate full R code necessary to retrieve and clean data, and perform analysis. Be sure to include a description of code so that others (including your future self) can understand what you are doing and why.
+
+```{r}
+#| label: Load Packages
+library(haven)
+library(tidyverse)
+```
+
+```{r}
+#| label: Read in Data
+addhealth <- read_sas("w4inhome.sas7bdat")
+```
+
+```{r}
+#| label: Clean Data
+#select variables of interest
+#demographics: age (H4OD1M - month, H4OD1Y - year), H4WS1 (# siblings), H4WS4 (# close friends), H4HS1 (health insurance), H4ED2 (current education), H4LM11 (working for pay 10 hrs), H4EC1 (household income)
+
+#(will need to pull demographic info of parents from parent survey)
+#past study used wave 1 demographics for covariates: age, sex, race/ethnicity, family structure, parental education, public assistance, geographic residence, parental alcoholism
+#exposure: H4WP3 (bio mom jail/prison), H4WP4 (how many times), H4WP5 (your age when mom), H4WP9 (bio dad jail/prison), H4WP10 (how many times), H4WP11 (age when dad), H4WP16 (mother figure jail/prison), H4WP16 (how many times), H4WP18 (how old), H4WP30 (father figure jail/prison), H4WP31 (how many times), H4WP32 (how old)
+#one study made categorical - neither, mother only, father only, both
+
+#outcome: H4GH1 (self-report health), bmi? (H4GH5F - height feet, H4GH5I - height inches, H4GH6 - weight lbs), H4HS9 (psychological counseling), H4ID5B (high cholesterol), H4ID5C (high blood pressure), H4ID5D (diabetes), H4ID5E (heart disease), H4ID5G (migraines), H4ID5H (depression), H4ID5I (PTSD), H4ID5J (anxiety/panic), H4ID5L (ADHD), H4MH2 - H4MH6 (percieved stress?), H4MH7-H4MH8 (self-esteem), H4MH18-H4MH28 (depression scale), H4BMI (bmi), H4BMICLS (bmi classification)
+
+#mediators: coping mechanisms (technically, might be more than needed for this project): H4GH8 (eat fast food), sleep? (H4SP..), H4SE1 (suicide ideation), H4SE2 (attempted suicide), [sexual history?], H4CJ1 (you arrested - has info on reason too if want), H4TO1 (ever smoked cig), H4TO3 (smoke regularly), H4TO33 (ever drank alcohol), H4TO36 (how many drinks have each time) - has info on behaviors while drunk, H4TO63 (prescription drugs - also broken down by type), H4TO68 (age first marijuana), H4DA23 (hours playing video games in week), H4DA24 (gambling), H4PE... (personality?), 
+```
 
 ## Results {#sec-results}
 
