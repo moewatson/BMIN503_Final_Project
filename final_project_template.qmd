@@ -16,27 +16,19 @@ Use this template to complete your project throughout the course. Your Final Pro
 
 TEST: to sync with github - make changes in R, then go to GIT tab in upper right (where environment is) then select the staged box on any changes made, then press commit, add a commit message about edits, then press commit, then press push
 
-Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
+*Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.*
 
 The goal of this project is to determine the association between experiencing an arrest in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and anxiety. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant coping mechanisms and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary outcomes of depression and anxiety diagnosis.
 
 ## Introduction {#sec-introduction}
 
-Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.
+*Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.*
 
-Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.
+*Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.*
 
-problem: Experience with the incarceration has been associated with a variety of negative health outcomes (citation). It is important to understand how involvement with the justice system at critical developmental periods can impact health in adulthood. Through investigating the relationship between childhood arrest/incarceration, adverse coping mechanisms, and mental health outcomes, this affect can be better understood.
+Experience with incarceration has been associated with a variety of negative health outcomes, ranging from chronic health conditions to infectious diseases to mental health (<https://www.annualreviews.org/content/journals/10.1146/annurev-soc-073014-112326>). It is important to understand how involvement with the justice system at critical developmental periods can impact health in adulthood. Through investigating the relationship between childhood arrest/incarceration, adverse coping mechanisms, and mental health outcomes, this affect can be better understood. In 2022, there were more than 1.2 million adults detained in prison (<https://bjs.ojp.gov/library/publications/prisoners-2022-statistical-tables#:~:text=The%20U.S.%20prison%20population%20was,to%20yearend%202022%20(87%2C800).>). It is necessary to understand the potential lasting effects of the justice system given the multitude of health factors and magnitude of individuals impacted by the system. **background to motivate problem**: Adverse Childhood Experiences (ACEs) are, potentially, traumatic events which have been linked to a multitude of health outcomes. ACEs fall under three categories: Abuse (physical, emotional, or sexual), Neglect (physical or emotional), and Household Challenges (incarceration, mental illness, substance misuse or dependence, intimate partner violence, or parental separation/divorce) (<https://www.acesaware.org/ace-fundamentals/>). More than 60% of US adults report experiencing at least one ACE before reaching 18 (<https://www.cdc.gov/aces/about/index.html>). Experiencing ACEs are associated with higher risk of chronic diseases, substance use, and poor mental health (<https://www.cdc.gov/aces/about/index.html>).
 
-significance: Number of incarcerated individuals in the US?? Adults who experience incarceration are at higher risk of alcohol/substance use disorders, depression, and ... (citation). It is necessary to understand the potential lasting effects of the justice system. WHY substance/alcohol use is bad! WHY depression/anxiety is bad! (how many people already suffer from it)
-
-background to motivate problem: Adverse Childhood Experiences (ACEs) are important factors which have been linked to a multitude of health outcomes. ACEs include ...
-
-why interdisciplinary: This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors.
-
-what fields contribute to understanding: Epidemiology helps to understand the magnitude of incarcerations effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates.
-
-**background related to faculty**: Dr. Nesoff provided important knowledge related to how one's neighborhood can affect substance use. !!!!!!!!
+This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors. Epidemiology helps to understand the magnitude of incarcerations effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates. **background related to faculty**: Dr. Nesoff provided important knowledge related to how one's neighborhood can affect substance use. !!!!!!!!
 
 ## Methods {#sec-methods}
 
@@ -52,7 +44,8 @@ library(tidyverse)
 
 ```{r}
 #| label: Read in Data
-addhealth <- read_sas("w4inhome.sas7bdat")
+wave1 <- read_sas("w1inhome.sas7bdat")
+wave4 <- read_sas("w4inhome.sas7bdat")
 ```
 
 #### Clean Data
