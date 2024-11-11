@@ -1,5 +1,5 @@
 ---
-title: "The Impact of Parental Incarceration in Childhood on Adulthood Coping Behaviors and Mental Health"
+title: "The Impact of Incarceration in Childhood on Adulthood Coping Behaviors and Mental Health"
 subtitle: "BMIN503/EPID600 Final Project"
 author: "Morgan Watson"
 format: html
@@ -18,7 +18,7 @@ TEST: to sync with github - make changes in R, then go to GIT tab in upper right
 
 Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.
 
-The goal of this project is to determine the association between experiencing an incarcerated parent in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and anxiety. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant coping mechanisms and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary outcomes of depression and anxiety diagnosis.
+The goal of this project is to determine the association between experiencing an arrest in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and anxiety. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant coping mechanisms and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary outcomes of depression and anxiety diagnosis.
 
 ## Introduction {#sec-introduction}
 
@@ -26,21 +26,23 @@ Describe the problem addressed, its significance, and some background to motivat
 
 Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.
 
-problem:
+problem: Experience with the incarceration has been associated with a variety of negative health outcomes (citation). It is important to understand how involvement with the justice system at critical developmental periods can impact health in adulthood. Through investigating the relationship between childhood arrest/incarceration, adverse coping mechanisms, and mental health outcomes, this affect can be better understood.
 
-significance:
+significance: Number of incarcerated individuals in the US?? Adults who experience incarceration are at higher risk of alcohol/substance use disorders, depression, and ... (citation). It is necessary to understand the potential lasting effects of the justice system. WHY substance/alcohol use is bad! WHY depression/anxiety is bad! (how many people already suffer from it)
 
-background to motivate problem:
+background to motivate problem: Adverse Childhood Experiences (ACEs) are important factors which have been linked to a multitude of health outcomes. ACEs include ...
 
-why interdisciplinary:
+why interdisciplinary: This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors.
 
-what fields contribute to understanding:
+what fields contribute to understanding: Epidemiology helps to understand the magnitude of incarcerations effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates.
 
-background related to faculty:
+**background related to faculty**: Dr. Nesoff provided important knowledge related to how one's neighborhood can affect substance use. !!!!!!!!
 
 ## Methods {#sec-methods}
 
 Describe the data used and general methodological approach used to address the problem described in the @sec-introduction. Subsequently, incorporate full R code necessary to retrieve and clean data, and perform analysis. Be sure to include a description of code so that others (including your future self) can understand what you are doing and why.
+
+#### Retrieve Data
 
 ```{r}
 #| label: Load Packages
@@ -53,19 +55,58 @@ library(tidyverse)
 addhealth <- read_sas("w4inhome.sas7bdat")
 ```
 
+#### Clean Data
+
 ```{r}
-#| label: Clean Data
+#| label: Select Variables of Interest
 #select variables of interest
 #demographics: age (H4OD1M - month, H4OD1Y - year), H4WS1 (# siblings), H4WS4 (# close friends), H4HS1 (health insurance), H4ED2 (current education), H4LM11 (working for pay 10 hrs), H4EC1 (household income)
 
-#(will need to pull demographic info of parents from parent survey)
-#past study used wave 1 demographics for covariates: age, sex, race/ethnicity, family structure, parental education, public assistance, geographic residence, parental alcoholism
-#exposure: H4WP3 (bio mom jail/prison), H4WP4 (how many times), H4WP5 (your age when mom), H4WP9 (bio dad jail/prison), H4WP10 (how many times), H4WP11 (age when dad), H4WP16 (mother figure jail/prison), H4WP16 (how many times), H4WP18 (how old), H4WP30 (father figure jail/prison), H4WP31 (how many times), H4WP32 (how old)
-#one study made categorical - neither, mother only, father only, both
+#exposure: section 22 (involvement with criminal justice system) - H4CJ1 (ever been arrested), H4CJ2 (how many times), H4CJ3 (how old were you - exclude those <18), H4CJ4 (how old when first arrested), H4CJ5 (how many times arrested before 18th birthday), more variables on reason for arrest, info about conviction?, H4CJ17 (spent time in jail/prison/etc), H4CJ19 (how old when sent to facility), H4CJ24Y/H4CJ24M (how much time spend in facility before 18)
 
 #outcome: H4GH1 (self-report health), bmi? (H4GH5F - height feet, H4GH5I - height inches, H4GH6 - weight lbs), H4HS9 (psychological counseling), H4ID5B (high cholesterol), H4ID5C (high blood pressure), H4ID5D (diabetes), H4ID5E (heart disease), H4ID5G (migraines), H4ID5H (depression), H4ID5I (PTSD), H4ID5J (anxiety/panic), H4ID5L (ADHD), H4MH2 - H4MH6 (percieved stress?), H4MH7-H4MH8 (self-esteem), H4MH18-H4MH28 (depression scale), H4BMI (bmi), H4BMICLS (bmi classification)
 
 #mediators: coping mechanisms (technically, might be more than needed for this project): H4GH8 (eat fast food), sleep? (H4SP..), H4SE1 (suicide ideation), H4SE2 (attempted suicide), [sexual history?], H4CJ1 (you arrested - has info on reason too if want), H4TO1 (ever smoked cig), H4TO3 (smoke regularly), H4TO33 (ever drank alcohol), H4TO36 (how many drinks have each time) - has info on behaviors while drunk, H4TO63 (prescription drugs - also broken down by type), H4TO68 (age first marijuana), H4DA23 (hours playing video games in week), H4DA24 (gambling), H4PE... (personality?), 
+```
+
+```{r}
+#| label: Recode Variables
+```
+
+#### Descriptive Statistics
+
+```{r}
+#| label: Demographic Variables
+```
+
+```{r}
+#| label: Exposure
+```
+
+```{r}
+#| label: Outcome
+```
+
+```{r}
+#| label: Potential Mediators
+```
+
+#### Analysis
+
+```{r}
+#| label: Outcome ~ Exposure (Unadjusted)
+```
+
+```{r}
+#| label: Outcome ~ Exposure + Covariates (Adjusted)
+```
+
+```{r}
+#| label: Outcome ~ Exposure + Mediator (Unadjusted)
+```
+
+```{r}
+#| label: Outcome ~ Exposure + Mediator + Covariates (Adjusted)
 ```
 
 ## Results {#sec-results}
