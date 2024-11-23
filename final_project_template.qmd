@@ -40,6 +40,8 @@ Describe the data used and general methodological approach used to address the p
 #| label: Load Packages
 library(haven)
 library(tidyverse)
+library(ggplot2)
+library(gtsummary)
 ```
 
 ```{r}
@@ -59,35 +61,229 @@ wave4 <- read_sas("w4inhome.sas7bdat")
 
 #outcome: H4GH1 (self-report health), bmi? (H4GH5F - height feet, H4GH5I - height inches, H4GH6 - weight lbs), H4HS9 (psychological counseling), H4ID5B (high cholesterol), H4ID5C (high blood pressure), H4ID5D (diabetes), H4ID5E (heart disease), H4ID5G (migraines), H4ID5H (depression), H4ID5I (PTSD), H4ID5J (anxiety/panic), H4ID5L (ADHD), H4MH2 - H4MH6 (percieved stress?), H4MH7-H4MH8 (self-esteem), H4MH18-H4MH28 (depression scale), H4BMI (bmi), H4BMICLS (bmi classification)
 
-#mediators: coping mechanisms (technically, might be more than needed for this project): H4GH8 (eat fast food), sleep? (H4SP..), H4SE1 (suicide ideation), H4SE2 (attempted suicide), [sexual history?], H4CJ1 (you arrested - has info on reason too if want), H4TO1 (ever smoked cig), H4TO3 (smoke regularly), H4TO33 (ever drank alcohol), H4TO36 (how many drinks have each time) - has info on behaviors while drunk, H4TO63 (prescription drugs - also broken down by type), H4TO68 (age first marijuana), H4DA23 (hours playing video games in week), H4DA24 (gambling), H4PE... (personality?), 
+#mediators: coping mechanisms (technically, might be more than needed for this project): H4GH8 (eat fast food), sleep? (H4SP..), H4SE1 (suicide ideation), H4SE2 (attempted suicide), [sexual history?], H4CJ1 (you arrested - has info on reason too if want), H4TO1 (ever smoked cig), H4TO3 (smoke regularly), H4TO33 (ever drank alcohol), H4TO36 (how many drinks have each time) - has info on behaviors while drunk, H4TO63 (prescription drugs - also broken down by type), H4TO68 (age first marijuana), H4DA23 (hours playing video games in week), H4DA24 (gambling), H4PE... (personality?)
+#keep wave 1 variables for confounders (gender, race/ethnicity, parental household income, highest level of parental education, and household family structure)
+w1_var <- wave1 |>
+  select(AID, BIO_SEX, H1GI1M, H1GI1Y, H1GI4, H1GI6A:H1GI6E, H1RM1, H1RM5, H1RM9, H1RF1, H1RF5, H1RF9)
+
+w4_var <- wave4 |>
+  select(AID, BIO_SEX4, H4OD1M, H4OD1Y, H4HS1, H4ED2, H4LM11, H4EC1, H4CJ1:H4CJ5, H4CJ17:H4CJ20, H4GH1, H4HS9, H4ID5B:H4ID5E, H4ID5G:H4ID5J, H4ID5L, H4MH2:H4MH8, H4MH18:H4MH28, H4BMI, H4BMICLS)
 ```
 
 ```{r}
-#| label: Recode Variables
+#| label: Recode Covariate Variables
+#will remove any missing (dont know/refuse) variables from this analysis
+#legitimate skips are okay
+
+#wave 1 covariates as factors
+w1_var <- w1_var |>
+  mutate(age_yr = H1GI1Y,
+         sex = factor(BIO_SEX, levels = c(1,2), labels = c("Male", "Female")),
+         hispanic = factor(H1GI4, levels = c(0, 1), labels = c("No", "Yes")),
+         race = case_when(H1GI6A == 1 ~ 1, #white
+                          H1GI6B == 1 ~ 2, #black
+                          H1GI6C == 1 ~ 3, #AINA
+                          H1GI6D == 1 ~ 4, #asian/pacific islander
+                          H1GI6E == 1 ~ 5),#other
+         race = factor(race, levels = c(1:5), labels = c("White", "Black/African American", "AI/NA", "Asian/Pacific Islander", "Other")),
+         mom_edu = case_when(H1RM1 %in% c(1,2,10) ~ 1, #less than HS
+                             H1RM1 %in% c(3,6) ~ 2, #trade
+                             H1RM1 %in% c(4,5) ~ 3, #HS/GED
+                             H1RM1 == 7 ~ 4, #some college
+                             H1RM1 %in% c(8,9) ~ 5, #college grad +
+                             H1RM1 %in% c(96,97) ~ 6), #legit skip
+         mom_edu = factor(mom_edu, levels = c(1:6), labels = c("Less than HS", "Trade/Vocational", "HS/GED", "Some College", "College and More", "Legit Skip")),
+         mom_income = factor(H1RM5, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         mom_pubasst = factor(H1RM9, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         dad_edu = case_when(H1RF1 %in% c(1,2,10) ~ 1, #less than HS
+                             H1RF1 %in% c(3,6) ~ 2, #trade
+                             H1RF1 %in% c(4,5) ~ 3, #HS/GED
+                             H1RF1 == 7 ~ 4, #some college
+                             H1RF1 %in% c(8,9) ~ 5, #college grad +
+                             H1RF1 %in% c(96,97) ~ 6), #legit skip
+         dad_edu = factor(dad_edu, levels = c(1:6), labels = c("Less than HS", "Trade/Vocational", "HS/GED", "Some College", "College and More", "Legit Skip")),
+         dad_income = factor(H1RF5, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         dad_pubasst = factor(H1RF9, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip"))
+         )
+
+w1_covar <- w1_var |>
+  select(AID, age_yr:dad_pubasst)
+w1_comp_var <- na.omit(w1_covar) #cleaned, no missing
+```
+
+Wave 1 was used to compile covariates (possible confounders). The variables of interest were respondent sex and race as well as parental education, employment status, and public assistance status. For the sake of this analysis, all missing variables (those answered as "Don't Know" or "Refused") are removed from the analysis. A complete case analysis will be used for this project.
+
+```{r}
+#| label: Recode Exposure Variables
+
+#H4OD1M, H4OD1Y, H4HS1, H4ED2, H4LM11, H4EC1, H4CJ1:H4CJ5, H4CJ17:H4CJ20, H4GH1, H4HS9, H4ID5B:H4ID5E, H4ID5G:H4ID5J, H4ID5L, H4MH7, H4MH8, H4MH18:H4MH28, H4BMI, H4BMICLS
+
+w4_fctvar <- w4_var |>
+  mutate(insurance = case_when(H4HS1 %in% c(2:11) ~ 0,
+                               H4HS1 == 1 ~ 1),
+         insurance = factor(insurance, levels = c(0,1), labels = c("No", "Yes")),
+         education = case_when(H4ED2 %in% c(1,2) ~ 1,
+                               H4ED2 == 3 ~ 2,
+                               H4ED2 %in% c(4,5) ~ 3,
+                               H4ED2 == 6 ~ 4,
+                               H4ED2 %in% c(7:13) ~ 5),
+         education = factor(education, levels = c(1:5), labels = c("Less than HS", "HS", "Vocational/Tech", "Some College", "College Grad or More")),
+         employment = factor(H4LM11, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         income = case_when(H4EC1 %in% c(1:6) ~ 1,
+                            H4EC1 %in% c(7,8) ~ 2,
+                            H4EC1 %in% c(9,10) ~ 3,
+                            H4EC1 %in% c(11,12) ~ 4),
+         income = factor(income, levels = c(1:4), labels = c("< 30k", "30-<50k", "50-<100k", "100k+")),
+         arrest = factor(H4CJ1, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         arrest_age = case_when(H4CJ3 %in% c(18:32) | H4CJ4 %in% c(18:29) ~ 0,
+                                H4CJ3 %in% c(12:17) | H4CJ4 %in% c(10:17) ~ 1,
+                                H4CJ3 == 97 | H4CJ4 == 97 ~ 2),
+         arrest_agefct = factor(arrest_age, levels = c(0,1,2), labels = c("Over 18", "Under 18", "Legit Skip")),
+         arrest_times = case_when(H4CJ5 == 1 ~ 1,
+                                  H4CJ5 == 2 ~ 2,
+                                  H4CJ5 == 3 ~ 3,
+                                  H4CJ5 %in% c(4:20) ~ 4, #4 or more
+                                  H4CJ5 == 997 ~ 5),
+         arrest_times = factor(arrest_times, levels = c(1:5), labels = c("Once", "Twice", "Three", "Four or More", "Legit Skip")), #arrests before 18th bday
+         jail = factor(H4CJ17, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
+         jail_age = case_when(H4CJ19 %in% c(18:32) | H4CJ20 %in% c(18:30) ~ 0,
+                              H4CJ19 <= 17 | H4CJ20 <= 17 ~ 1,
+                              H4CJ19 == 97 | H4CJ20 == 97 ~ 2),
+         jail_agefct = factor(jail_age, levels = c(0,1,2), labels = c("Over 18", "Under 18", "Legit Skip")),
+         jail_times = factor(H4CJ18, levels = c(1,2,7), labels = c("Once", "More than Once", "Legit Skip")),
+         child_arrest_jail = case_when(arrest_age == 1 | jail_age == 1 ~ 1,
+                                       arrest_age %in% c(0,2) | jail_age %in% c(0,2) ~ 0),
+         child_arrest_jail = factor(child_arrest_jail, levels = c(0,1), labels = c("No", "Yes"))
+         )
+```
+
+
+```{r}
+#| label: Recode Outcome Variables
+# H4GH1, H4HS9, H4ID5B:H4ID5E, H4ID5G:H4ID5J, H4ID5L, MH2-6, H4MH7, H4MH8, H4MH18:H4MH28, H4BMI, H4BMICLS
+#have the ability to code for small perceived stress and also depressive symptoms
+
+w4_fctvar <- w4_fctvar |>
+  mutate(health = factor(H4GH1, levels = c(1:5), labels = c("Excellent", "Very Good", "Good", "Fair", "Poor")),
+         counseling = factor(H4HS9, levels = c(0,1), labels = c("No", "Yes")),
+         high_chol = factor(H4ID5B, levels = c(0,1), labels = c("No", "Yes")),
+         high_bp = factor(H4ID5C, levels = c(0,1), labels = c("No", "Yes")),
+         diabetes = factor(H4ID5D, levels = c(0,1), labels = c("No", "Yes")),
+         heart_disease = factor(H4ID5E, levels = c(0,1), labels = c("No", "Yes")),
+         migraine = factor(H4ID5G, levels = c(0,1), labels = c("No", "Yes")),
+         depression = factor(H4ID5H, levels = c(0,1), labels = c("No", "Yes")),
+         ptsd = factor(H4ID5I, levels = c(0,1), labels = c("No", "Yes")),
+         anxiety = factor(H4ID5J, levels = c(0,1), labels = c("No", "Yes")),
+         adhd = factor(H4ID5L, levels = c(0,1), labels = c("No", "Yes")),
+         bmi = H4BMI,
+         bmi_cat = factor(H4BMICLS, levels = c(1:6), labels = c("Underweight: <18.5", "Normal: 18.5-<25", "Overweight: 25-<30", "Obese I: 30-<35", "Obese II: 35-<40", "Obese III: 40+")),
+         self_intelligent = case_when(H4MH7 %in% c(1,2) ~ 1,
+                                      H4MH7 == 3 ~ 2,
+                                      H4MH7 %in% c(4:6) ~ 2),
+         self_intelligent = factor(self_intelligent, levels = c(1,2,3), labels = c("Below Avg", "Average", "Above Avg")),
+         self_attractive = factor(H4MH8, levels = c(1:4), labels = c("Very", "Moderately", "Slightly", "Not at All"))
+         )
+
+w4_fctvar <- w4_fctvar |>
+  select(AID, insurance:self_attractive)
+w4_comp_fctvar <- na.omit(w4_fctvar)
+
+```
+
+```{r}
+#| label: Analysis Dataset
+
+final_data <- merge(w1_comp_var, w4_comp_fctvar, by = "AID")
+final_data$arrest_agefct <- relevel(final_data$arrest_agefct, ref = "Legit Skip")
+levels(final_data$arrest_agefct)
+final_data$jail_agefct <- relevel(final_data$jail_agefct, ref = "Legit Skip")
+levels(final_data$jail_agefct)
+
+#removes anyone who was not arrested from the dataset
+final2 <- final_data |>
+  filter(arrest_agefct != "Legit Skip")
 ```
 
 #### Descriptive Statistics
 
 ```{r}
 #| label: Demographic Variables
+
+final_data |> 
+  select(sex:race, insurance:income) |>
+  tbl_summary()
+
+final_data |>
+  select(mom_edu:dad_pubasst) |>
+  tbl_summary()
+
+ggplot(final_data, aes(sex, fill = race)) + geom_bar()
+ggplot(final_data, aes(income, fill = education)) + geom_bar()
+
 ```
 
 ```{r}
 #| label: Exposure
+
+final_data |> 
+  select(arrest, arrest_agefct:jail, jail_agefct:child_arrest_jail) |>
+  tbl_summary()
+
+ggplot(final_data, aes(arrest, fill = race)) + geom_bar()
+ggplot(final_data, aes(arrest_agefct, fill = race)) + geom_bar()
+
+ggplot(final_data, aes(jail, fill = race)) + geom_bar()
+ggplot(final_data, aes(jail_agefct, fill = race)) + geom_bar()
+
+
+ggplot(final2, aes(arrest_agefct, fill = race)) + geom_bar()
+ggplot(final2, aes(jail_agefct, fill = race)) + geom_bar()
+
+ggplot(final2, aes(child_arrest_jail, fill = race)) + geom_bar()
+ggplot(final2, aes(child_arrest_jail, fill = sex)) + geom_bar()
+
+ggplot(final2, aes(child_arrest_jail, fill = mom_edu)) + geom_bar()
+
+table(final_data$child_arrest_jail)
 ```
 
 ```{r}
 #| label: Outcome
-```
 
-```{r}
-#| label: Potential Mediators
+final_data |>
+  select(health:self_attractive) |>
+  tbl_summary()
+
+ggplot(final_data, aes(high_bp, fill = bmi_cat)) + geom_bar()
+ggplot(final_data, aes(high_bp, bmi)) + geom_boxplot()
+ggplot(final_data, aes(high_chol, bmi)) + geom_boxplot()
+ggplot(final_data, aes(diabetes, bmi)) + geom_boxplot()
+
+ggplot(final_data, aes(self_attractive, bmi)) + geom_boxplot()
+
 ```
 
 #### Analysis
 
 ```{r}
+#| label: Descriptive Analysis Outcome ~ Exposure
+
+
+```
+
+```{r}
 #| label: Outcome ~ Exposure (Unadjusted)
+
+mod <- glm(depression ~ child_arrest_jail, family = binomial, data = final_data)
+summary(mod)
+
+moda <- glm(depression ~ arrest_agefct, family = binomial, data = final_data)
+summary(moda)
+modj <- glm(depression ~ jail_agefct, family = binomial, data = final_data)
+summary(modj)
+
+mod2 <- glm(diabetes ~ child_arrest_jail, family = binomial, data = final_data)
+summary(mod2)
 ```
 
 ```{r}
