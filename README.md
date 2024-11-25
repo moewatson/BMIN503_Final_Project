@@ -10,6 +10,8 @@ The HTML document called final_project.html includes all code and output associa
 
 
 
+Previous Template README
+
 This repository contains templates for the final written report and GitHub repository. Follow the instructions below to clone this repository, and then turn in your final project's code via a pull request to this repository.
 
 1. To start, **fork** this BMIN503_Final_Project repository.
