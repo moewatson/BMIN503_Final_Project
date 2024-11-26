@@ -34,7 +34,7 @@ This project is interdisciplinary as it ties together factors from the fields of
 
 Public-use data from the Add Health study will be analyzed below. Wave 1 data was collected in 1994-95 when participants were in grades 7-12 and first recruited into the study. Wave 4 data was collected in 2008 when participants were aged 24-32. Wave V data has been collected, but is not yet publically available. In Wave 4, participants answered questions about criminal justice history and personal health. This data allows for information to be gathered the about experience with the justice system in childhood and current (adulthood) health. It is important to note the role of temporality in this data and subsequent analysis. In order to ensure that the health outcomes occurred after the exposure of the justice system, only questions with a time component will be considered in the final analysis. These time components include the following: "In the last 30 days", "In the last 7 days", "In the previous 12 months", etc. Questions which include the wording such as, "have you ever", will not be used for the final analysis.
 
-#### Retrieve Data
+### Retrieve Data
 
 ```{r}
 #| label: Load Packages
@@ -52,8 +52,9 @@ wave4 <- read_sas("w4inhome.sas7bdat")
 
 The data for this project will utilize information from Wave 1 and Wave 4. Wave 1 includes necessary, self-reported, baseline information of participant sex and race as well as parent information which will be used as covariates. Wave 4 includes self-reported information on criminal justice history, health history, and current health. ince this is a longitudinal analysis, demographic information from the adult participants cannot be used to also adjust for childhood experiences. For example, having a college degree as an adult (Wave 4) does not influence the likelihood of being arrested as a youth.
 
-#### Clean Data
+### Clean Data
 
+#### Select Variables of Interest
 ```{r}
 #| label: Select Variables of Interest
 
@@ -66,6 +67,7 @@ w4_var <- wave4 |>
   select(AID, BIO_SEX4, H4OD1M, H4OD1Y, H4HS1, H4ED2, H4LM11, H4EC1, H4CJ1:H4CJ5, H4CJ7A:H4CJ7K, H4CJ17:H4CJ20, H4GH1, H4HS9, H4ID5B:H4ID5E, H4ID5G:H4ID5J, H4ID5L, H4MH2:H4MH8, H4MH18:H4MH28, H4BMI, H4BMICLS, H4SE1:H4SE3, H4TO5, H4TO39, H4TO40, H4TO63, H4TO64A:H4TO65E, H4TO71)
 ```
 
+#### Recode Covariate Variables
 ```{r}
 #| label: Recode Covariate Variables
 
@@ -112,6 +114,7 @@ w1_comp_var <- na.omit(w1_covar)
 
 Wave 1 was used to compile covariates (possible confounders). The variables of interest were respondent sex and race as well as parental (mom and dad) education, employment status, and public assistance status. For the sake of this analysis, all missing variables (those answered as "Don't Know" or "Refused") are removed from the analysis. A complete case analysis will be used for this project. Questions which the participant did not answer because of a "Legitimate Skip" are retained within the analysis.
 
+#### Recode Exposure Variables
 ```{r}
 #| label: Recode Exposure Variables
 
@@ -177,6 +180,7 @@ w4_fctvar <- w4_var |>
 
 Any variables related to the exposure of childhood arrest/incarceration are recoded above. These variables assess both the experience of the exposure and further context of the exposure (such as the reason for arrest). Some demographic variables related to the participants at Wave 4 are included as well.
 
+#### Recode Outcome Variables
 ```{r}
 #| label: Recode Outcome Variables
 
@@ -333,6 +337,7 @@ w4_comp_fctvar <- na.omit(w4_fctvar) |>
 
 The necessary outcome variables are recoded above. While there are many variables related to health and health behaviors, the regression analysis will be focused on only those for which temporality can be established. Specifically, questions in the Wave 4 questionnaire worded as "have you ever been told by a doctor" will not be included in the ultimate analysis because it is unknown when the diagnosis occurred. Instead, variables which asked about health outcomes within the past 30 days, or past 7 days for depression, will be used to assess the longitudinal relationship between childhood arrest/incarceration and adulthood health. Since most of the outcome variables are categorical, the ones which will be used in the analysis have been dichotomized so that logistic regression can be conducted. The outcome variables which will be used in the final analysis are: general health, BMI, counseling status, depressive symptoms (based on the CESD-10), suicidal thoughts, use of the cigarettes/alcohol/marijuana in the last 30 days.
 
+#### Analysis Dataset
 ```{r}
 #| label: Analysis Dataset
 
@@ -340,17 +345,16 @@ final_data <- merge(w1_comp_var, w4_comp_fctvar, by = "AID")
 
 #relevels the arrest and jail age factor variables so that legit skip is the reference
 final_data$arrest_agefct <- relevel(final_data$arrest_agefct, ref = "Legit Skip")
-levels(final_data$arrest_agefct)
 final_data$jail_agefct <- relevel(final_data$jail_agefct, ref = "Legit Skip")
-levels(final_data$jail_agefct)
 
 ```
 
 The final analysis dataset is created above. It includes all recoded and cleaned relevant variables from Waves 1 and 4. 
 
 
-#### Descriptive Statistics
+### Descriptive Statistics
 
+#### Demographic Variables
 ```{r}
 #| label: Demographic Variables
 #sex, race, ethnicity, education, employment, income, insurance
@@ -359,13 +363,14 @@ ggplot(final_data, aes(race, fill = sex)) + geom_bar(position = "dodge") + scale
 
 ggplot(final_data, aes(income, fill = education)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "PuBuGn") + ggtitle("Participant Income by Educational Attainment (N = 4237)")
 
-ggplot(final_data, aes(insurance, fill = employment)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participant Insurance Status by Employment (N = 4237)") + labs(subtitle = "Legit Skip = Active Military or Inprisoned") #employ legit skip is military or in prison
+ggplot(final_data, aes(insurance, fill = employment)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participant Insurance Status by Employment (N = 4237)") + labs(subtitle = "Legit Skip = Active Military or Imprisoned") #employ legit skip is military or in prison
 
 ggplot(final_data, aes(mom_edu, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participant's Mother's Educational Attainment by Participant Sex (N = 4237)")
 ggplot(final_data, aes(dad_edu, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participant's Fathers's Educational Attainment by Participant Sex (N = 4237)")
 
 ```
 
+#### Exposure Variables
 ```{r}
 #| label: Exposure
 
@@ -397,6 +402,7 @@ ggplot(final_data11, aes(arrest_charge)) + geom_bar() + coord_flip() +
 
 ```
 
+#### Outcome Variables
 ```{r}
 #| label: Outcome
 
@@ -414,8 +420,9 @@ ggplot(final_data, aes(mari_days, fill = sex)) + geom_bar(position = "dodge") + 
 
 ```
 
-#### Analysis
+### Analysis
 
+#### Descriptive Analysis of Additional Outcomes
 ```{r}
 #| label: Descriptive Analysis Outcome ~ Exposure
 
@@ -441,6 +448,7 @@ addmargins(table(final_data$child_arrest_jail, final_data$suicide_attempt,
 ```
 The above tables are the frequencies of childhood arrest or incarceration with different health outcomes. These are the outcomes for which temporality cannot be established, so a regression model cannot be performed. However, it is still important to understand the frequencies. For instance, individuals with the exposure seem to be overrepresented in the mental health outcomes of depression, anxiety, PTSD, and ADHD diagnoses as well as suicide attempts. This pattern is not seen with the other physical health outcomes.  
 
+#### Regression Function
 ```{r}
 #| label: Regression Function
 
@@ -509,6 +517,7 @@ bh_OR <- function(formula) {
 
 The following functions were developed to run the various logistic regression models required for the final analysis. Since this project examines the same exposure on a multitude of outcomes, the risk of experiencing type I errors is high. A type I error is the occurrence of a false positive or when an association is found to be significant when it is not in reality. The probability of experiencing this error becomes very large the more hypothesis tests, or regression analyses, are run. As such, in addition to conducting standard logistic regression models, the regression has also been run while including Bonferroni Correction. The Bonferroni Correction generates a more conservative alpha value to be used to assess significance of an association. It is typically calculated by dividing the standard alpha value, typically 0.05, by the number of tests being run. For this project there are 8 total associations being tested. The Bonferroni-corrected significance value is 0.05/8 = 0.00625. In order to develop the needed confidence intervals for the odds ratios, a significance value of 0.005 was utilized and 99% confidence intervals were created.
 
+#### Unadjusted Physical Health ~ Exposure
 ```{r}
 #| label: Outcome (Physical Health) ~ Exposure (Unadjusted)
 
@@ -526,6 +535,7 @@ summary(mod)
 
 ```
 
+#### Adjusted Physical Health ~ Exposure
 ```{r}
 #| label: Outcome (Physical Health) ~ Exposure + Covariates (Adjusted)
 
@@ -541,6 +551,7 @@ summary(moda)
 
 ```
 
+#### Unadjusted Mental Health ~ Exposure
 ```{r}
 #| label: Outcome (Mental Health) ~ Exposure (Unadjusted)
 
@@ -557,6 +568,7 @@ regb3 <- bon_OR(suicide_thoughts ~ child_arrest_jail)
 
 ```
 
+#### Adjusted Mental Health ~ Exposure
 ```{r}
 #| label: Outcome (Mental Health) ~ Exposure + Covariates (Adjusted)
 
@@ -573,6 +585,7 @@ regb3a <- bon_OR(suicide_thoughts ~ child_arrest_jail + sex + hispanic + race + 
 
 ```
 
+#### Unadjusted Adverse Behaviors ~ Exposure
 ```{r}
 #| label: Outcome (Maladaptive Behaviors) ~ Exposure (Unadjusted)
 
@@ -588,6 +601,7 @@ testb2 <- bon_OR(alc_dich ~ child_arrest_jail)
 testb3 <- bon_OR(mari_dich ~ child_arrest_jail)
 ```
 
+#### Adjusted Adverse Behaviors ~ Exposure
 ```{r}
 #| label: Outcome (Maladaptive Behaviors) ~ Exposure + Covariates (Adjusted)
 
@@ -607,8 +621,9 @@ testb3a <- bon_OR(mari_dich ~ child_arrest_jail + sex + hispanic + race + mom_ed
 
 The final results of the analysis are provided below. This section will include tables reporting the descriptive statistics of the sample and the resulting odds ratios of the analysis. 
 
-#### Summary Tables
+### Summary Tables
 
+#### Demographic Variables by Childhood Arrest and Incarceration
 ```{r}
 #| label: Demographic
 
@@ -628,17 +643,7 @@ demo_table2
 
 ```
 
-```{r}
-#| label: Childhood Arrest and Incarceration Exposure
-
-expo_table <- final_data |> 
-  filter(child_arrest_jail == "Yes") |>
-  select(arrest, arrest_agefct:jail, jail_agefct:jail_times, arrest_charge) |>
-  tbl_summary() |>
-  modify_caption("**Childhood Arrest and Incarceration Descriptive Statistics**")
-expo_table
-```
-
+#### Health Outcomes by Childhood Arrest and Incarceration
 ```{r}
 #| label: Physical and Mental Health Outcomes
 
@@ -661,8 +666,9 @@ out_table2
 
 ```
 
-#### Odds Ratios
+### Odds Ratios
 
+#### Unadjusted
 ```{r}
 #| label: Unadjusted Odds Ratios
 
@@ -670,6 +676,7 @@ unadj_OR <- rbind(mod1, reg1, reg2, reg3, test1, test2, test3)
 unadj_OR
 ```
 
+#### Unadjusted Bonferroni-Corrected
 ```{r}
 #| label: Unadjusted, Bonferroni-Corrected Odds Ratios
 
@@ -679,6 +686,7 @@ unadj_bon_OR
 
 Even with the Bonferroni correction, all of the assessed unadjusted associations are significant. Those with who experienced an arrest or incarceration before age 18 are 0.58 times the odds of experiencing a health rating of Excellent/Good than those who were not arrested or incarcerated in childhood. Individuals who had a childhood arrest or incarceration had greater odds of psychological/emotional counseling, depressive symptoms, suicidal thoughts, cigarette usage, alcohol usage, and marijuana usage than those who did not experience childhood arrest or incarceration. 
 
+#### Adjusted
 ```{r}
 #| label: Adjusted Odds Ratios
 
@@ -686,6 +694,7 @@ adj_OR <- rbind(mod1a, reg1a, reg2a, reg3a, test1a, test2a, test3a)
 adj_OR
 ```
 
+#### Adjusted, Bonferroni-Corrected
 ```{r}
 #| label: Adjusted, Bonferroni-Corrected Odds Ratios
 
