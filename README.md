@@ -8,7 +8,11 @@ The Quarto document called final_project.qmd includes all necessary code for the
 
 The HTML document called final_project.html includes all code and output associated with the research question.
 
-
+The following files include draft versions of the final project:
+  final_project_template.qmd
+  final_project_analysis.qmd
+  
+  
 
 Previous Template README
 
