@@ -10,25 +10,17 @@ embed-resources: true
 
 ------------------------------------------------------------------------
 
-Use this template to complete your project throughout the course. Your Final Project presentation will be based on the contents of this document. Replace the title/name above and text below with your own, but keep the headers. Feel free to change the theme and other display settings, although this is not required.
-
 ## Overview {#sec-overview}
-
-TEST: to sync with github - make changes in R, then go to GIT tab in upper right (where environment is) then select the staged box on any changes made, then press commit, add a commit message about edits, then press commit, then press push
-
-*Give a brief a description of your project and its goal(s), what data you are using to complete it, and what two faculty/staff in different fields you have spoken to about your project with a brief summary of what you learned from each person. Include a link to your final project GitHub repository.*
 
 The goal of this project is to determine the association between experiencing an arrest in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and suicidality. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant risky behaviors and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary health and behavior outcomes.  
 
+GitHub Repository: https://github.com/moewatson/BMIN503_Final_Project 
+
 ## Introduction {#sec-introduction}
 
-*Describe the problem addressed, its significance, and some background to motivate the problem. This should extend what is in the @sec-overview.*
+Experience with incarceration has been associated with a variety of negative health outcomes, ranging from chronic health conditions to infectious diseases to mental health (1). It is important to understand how involvement with the justice system at critical developmental periods can impact health in adulthood. Through investigating the relationship between childhood arrest/incarceration, adverse coping mechanisms, and health outcomes, this affect can be better understood. 
 
-*Explain why your problem is interdisciplinary, what fields can contribute to its understanding, and incorporate background related to what you learned from meeting with faculty/staff.*
-
-Experience with incarceration has been associated with a variety of negative health outcomes, ranging from chronic health conditions to infectious diseases to mental health (1). It is important to understand how involvement with the justice system at critical developmental periods can impact health in adulthood. Through investigating the relationship between childhood arrest/incarceration, adverse coping mechanisms, and mental health outcomes, this affect can be better understood. 
-
-In 2022, there were more than 1.2 million adults detained in prison (2). There were over 420,000 youth arrests made in 2020 and more than 25,000 children under the age of 18 were held in various juvenile justice facilities. While there are fewer children involved with the justice system than adults, children experience the system at an important period of development. It is necessary to understand the potential lasting effects of the justice system given the multitude of health factors and magnitude of individuals impacted by the system. Adverse Childhood Experiences (ACEs) are potentially traumatic events which have been linked to a multitude of health outcomes. ACEs fall under three categories: Abuse (physical, emotional, or sexual), Neglect (physical or emotional), and Household Challenges (incarceration, mental illness, substance misuse or dependence, intimate partner violence, or parental separation/divorce) (3). More than 60% of US adults report experiencing at least one ACE before reaching 18 (4). Experiencing ACEs are associated with higher risk of chronic diseases, substance use, and poor mental health (4). Further, past studies have found an association between childhood arrest and increased suicidality as well as an association between childhood incarceration and worse general health (5,6). More research is needed to understand the long-lasting impacts of the carceral system on health. 
+In 2022, there were more than 1.2 million adults detained in prison (2). There were over 420,000 youth arrests made in 2020 and more than 25,000 children under the age of 18 were held in various juvenile justice facilities (3,4). While there are fewer children involved with the justice system than adults, children experience the system at an important period of development. It is necessary to understand the potential lasting effects of the justice system given the multitude of health factors and magnitude of individuals impacted by the system. Adverse Childhood Experiences (ACEs) are potentially traumatic events which have been linked to a multitude of health outcomes. ACEs fall under three categories: Abuse (physical, emotional, or sexual), Neglect (physical or emotional), and Household Challenges (incarceration, mental illness, substance misuse or dependence, intimate partner violence, or parental separation/divorce) (5). More than 60% of US adults report experiencing at least one ACE before reaching 18 (6). Experiencing ACEs are associated with higher risk of chronic diseases, substance use, and poor mental health (4). Further, past studies have found an association between childhood arrest and increased suicidality as well as an association between childhood incarceration and worse general health (7,8). More research is needed to understand the long-lasting impacts of the carceral system on health. 
 
 This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors. Epidemiology helps to understand the magnitude of incarcerations effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates. Dr. Nesoff provided important knowledge related to how one's neighborhood context can affect substance use and other risky behaviors. She assisted me in framing this project within the field of social epidemiology. Dr. Seewald provided helpful suggestions for my analysis, especially related to the usage of a Bonferroni correction in order to address the possibility of Type I Error when running multiple hypothesis tests within the same study.
 
@@ -423,7 +415,6 @@ ggplot(final_data, aes(cig_days, fill = sex)) + geom_bar(position = "dodge") + s
 ggplot(final_data, aes(alcohol_days, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Alcohol Frequency in the Last 30 Days by Sex (N=4237)") + labs(x = "Alcohol Status", y = "Count")
 ggplot(final_data, aes(mari_days, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Marijuana-Use Frequency in the Last 30 Days by Sex (N=4237)") + labs(x = "Marijuana Status", y = "Count")
 
-
 ```
 
 ### Analysis
@@ -452,6 +443,7 @@ addmargins(table(final_data$child_arrest_jail, final_data$adhd,
 addmargins(table(final_data$child_arrest_jail, final_data$suicide_attempt,
                  dnn = c("Arrest/Incarceration", "Suicide Attempt")))
 ```
+
 The above tables are the frequencies of childhood arrest or incarceration with different health outcomes. These are the outcomes for which temporality cannot be established, so a regression model cannot be performed. However, it is still important to understand the frequencies. For instance, individuals with the exposure seem to be overrepresented in the mental health outcomes of depression, anxiety, PTSD, and ADHD diagnoses as well as suicide attempts. This pattern is not seen with the other physical health outcomes.  
 
 #### Regression Function
@@ -496,29 +488,6 @@ bon_OR <- function(formula) {
   print(results)
   return(results)
 }
-
-#benjamini-hochberg correction (which is better?)
-bh_OR <- function(formula) {
-  mod <- glm(formula, family = binomial, data = final_data)
-  summary(mod)
-  pvalues <- summary(mod)$coefficients[,4]
-  adjust_p <- p.adjust(pvalues)
-  print(pvalues)
-  odds_ratio = exp(coef(mod))
-  confidence = exp(confint(mod))
-  outcome <- as.character(formula[[2]])
-  results <- data.frame(
-    outcome = outcome,
-    variable = names(odds_ratio),
-    odds_ratio = odds_ratio,
-    lower_ci = confidence[,1],
-    upper_ci = confidence[,2]
-  )
-  results <- results |>
-    filter(variable == "child_arrest_jailYes")
-  print(results)
-  return(results)
-}
 ```
 
 The following functions were developed to run the various logistic regression models required for the final analysis. Since this project examines the same exposure on a multitude of outcomes, the risk of experiencing type I errors is high. A type I error is the occurrence of a false positive or when an association is found to be significant when it is not in reality. The probability of experiencing this error becomes very large the more hypothesis tests, or regression analyses, are run. As such, in addition to conducting standard logistic regression models, the regression has also been run while including Bonferroni Correction. The Bonferroni Correction generates a more conservative alpha value to be used to assess significance of an association. It is typically calculated by dividing the standard alpha value, typically 0.05, by the number of tests being run. For this project there are 8 total associations being tested. The Bonferroni-corrected significance value is 0.05/8 = 0.00625. In order to develop the needed confidence intervals for the odds ratios, a significance value of 0.005 was utilized and 99% confidence intervals were created.
@@ -528,12 +497,11 @@ The following functions were developed to run the various logistic regression mo
 #| label: Outcome (Physical Health) ~ Exposure (Unadjusted)
 
 #physical health: general health, bmi
-
 mod1 <- model_OR(health_cat ~ child_arrest_jail)
+
 #bonferroni adjusted confidence intervals, alpha=0.005
 modb1 <- bon_OR(health_cat ~ child_arrest_jail)
 
-bh_OR(health_cat ~ child_arrest_jail)
 
 #linear regression (consider with alpha=0.05 and alpha=0.005)
 mod <- glm(bmi ~ child_arrest_jail, data = final_data)
@@ -625,7 +593,7 @@ testb3a <- bon_OR(mari_dich ~ child_arrest_jail + sex + hispanic + race + mom_ed
 
 ## Results {#sec-results}
 
-The final results of the analysis are provided below. This section will include tables reporting the descriptive statistics of the sample and the resulting odds ratios of the analysis. 
+The final results of the analysis are provided below. This section will include tables reporting the descriptive statistics of the sample and the resulting odds ratios of the logistic regression models. 
 
 ### Summary Tables
 
@@ -713,16 +681,23 @@ When the models are adjusted for possible covariates and the Bonferroni correcti
 ## Conclusion
 
 Based on the above results, it can be concluded that there seems to be a positive association between experience with the carceral system before age 18 and negative health outcomes. Specifically, participants who were arrested or incarcerated before the age of 18 had lower odds of reporting that they considered their health Excellent or Good. Additionally, they were associated with worse mental health outcomes such as high depressive symptoms and suicidal thoughts. They also utilized cigarettes, alcohol, and marijuana more than their peers who did not experience arrest or incarceration in childhood. 
-[When considering the descriptive tables, it seems as though individuals with the exposure were more likely to have utilized drugs at some point in their lives. The most common reason for childhood arrest was because of theft or a marijuana-related charge.]
+When considering the descriptive tables, it seems as though individuals with the exposure were more likely to have utilized drugs at some point in their lives. They also had higher rates of diagnosed health outcomes such as diabetes, ptsd, and adhd. The most common reason for childhood arrest was theft or a marijuana-related charge.
+
+## Discussion 
+
+There were several limitations to this project. First, in order to establish temporality, the analysis relied on self-reported outcome measures and not diagnosed outcomes. The reliance on self-reported data leads to the possibility of information bias. Specically, there is likely recall bias from having to provide information about the exposure, which occurred before the age of 18, when the participant was 26-32. Additionally, the outcome variables utilized time points such as "Within the last 30 days" which can impact recall bias. Since the variables of interest include highly sensitive topics such as the criminal justice system and substance use, there is a possiblity for the occurrence of social desirability bias. The accuracy of their answers cannot be determined. The results of this project are not currently representative of the general population since the necessary Add Health sample weights were not applied. 
+These initial results highlight that it is important to understand the association between childhood arrest/incarceration and adulthood behaviors and health better. Next steps might include conducting the above analyses separately for both arrest and incarceration to determine which might be more influential on health. Investigating the potential dose-response of different coping behaviors might provide a deeper understanding into the impact of chlidhood arrest/incarceration. Finally, past studies have demonstrated an association between substance use and adverse physical and mental health outcomes. As such, it would be interesting to determine the potential mediating or modifying role of coping behaviors on the relationship between childhood arrest/incarceration and health. This knowledge could inform future interventions to limit the influence of childhood experience with the justice system on health.
 
 
 ### References
 1. https://www.annualreviews.org/content/journals/10.1146/annurev-soc-073014-112326
 2. https://bjs.ojp.gov/library/publications/prisoners-2022-statistical-tables#:~:text=The%20U.S.%20prison%20population%20was,to%20yearend%202022%20(87%2C800).  
-3. https://www.acesaware.org/ace-fundamentals/
-4. https://www.cdc.gov/aces/about/index.html
-5. https://pmc.ncbi.nlm.nih.gov/articles/PMC6527101/
-6. https://pmc.ncbi.nlm.nih.gov/articles/PMC9971348/#ref-list1 
+3. https://ojjdp.ojp.gov/statistical-briefing-book/crime/faqs/qa05101
+4. https://doi.apa.org/doi/10.1037/e507752009-002
+5. https://www.acesaware.org/ace-fundamentals/
+6. https://www.cdc.gov/aces/about/index.html
+7. https://pmc.ncbi.nlm.nih.gov/articles/PMC6527101/
+8. https://pmc.ncbi.nlm.nih.gov/articles/PMC9971348/#ref-list1 
 
 
 
