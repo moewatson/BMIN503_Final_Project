@@ -1,5 +1,5 @@
 ---
-title: "The Impact of Incarceration in Childhood on Adulthood Coping Behaviors and Mental Health"
+title: "The Impact of Incarceration in Childhood on Adulthood Coping Behaviors and Health"
 subtitle: "BMIN503/EPID600 Final Project"
 author: "Morgan Watson"
 format: html
