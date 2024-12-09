@@ -483,7 +483,6 @@ model_OR <- function(formula) {
   )
   results <- results |>
     filter(variable == "child_arrest_jailYes")
-  print(results)
   return(results)
 }
 
@@ -502,7 +501,6 @@ bon_OR <- function(formula) {
   )
   results <- results |>
     filter(variable == "child_arrest_jailYes")
-  print(results)
   return(results)
 }
 ```

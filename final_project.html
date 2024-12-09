@@ -3745,28 +3745,26 @@ Arrest/Incarceration None Once Two or More Legit Skip  Sum
 <span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> results <span class="sc">|&gt;</span></span>
 <span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">&quot;child_arrest_jailYes&quot;</span>)</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(results)</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>bon_OR <span class="ot">&lt;-</span> <span class="cf">function</span>(formula) {</span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula, <span class="at">family =</span> binomial, <span class="at">data =</span> final_data)</span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod)</span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>  odds_ratio <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">coef</span>(mod))</span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>  confidence <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">confint</span>(mod, <span class="at">level =</span> <span class="fl">0.99</span>))</span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">as.character</span>(formula[[<span class="dv">2</span>]])</span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> outcome,</span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> <span class="fu">names</span>(odds_ratio),</span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">odds_ratio =</span> odds_ratio,</span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower_ci =</span> confidence[,<span class="dv">1</span>],</span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper_ci =</span> confidence[,<span class="dv">2</span>]</span>
-<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> results <span class="sc">|&gt;</span></span>
-<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">&quot;child_arrest_jailYes&quot;</span>)</span>
-<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(results)</span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
-<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>bon_OR <span class="ot">&lt;-</span> <span class="cf">function</span>(formula) {</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>  mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula, <span class="at">family =</span> binomial, <span class="at">data =</span> final_data)</span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod)</span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>  odds_ratio <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">coef</span>(mod))</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>  confidence <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">confint</span>(mod, <span class="at">level =</span> <span class="fl">0.99</span>))</span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">as.character</span>(formula[[<span class="dv">2</span>]])</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> outcome,</span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> <span class="fu">names</span>(odds_ratio),</span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">odds_ratio =</span> odds_ratio,</span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower_ci =</span> confidence[,<span class="dv">1</span>],</span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper_ci =</span> confidence[,<span class="dv">2</span>]</span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> results <span class="sc">|&gt;</span></span>
+<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">&quot;child_arrest_jailYes&quot;</span>)</span>
+<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following functions were developed to run the various logistic regression models required for the final analysis. Since this project examines the same exposure on a multitude of outcomes, the probability of experiencing a type I error is high. A type I error is the occurrence of a false positive, or when an association is found to be significant when it is not in reality. The probability of experiencing this error becomes very large the more hypothesis tests, or regression analyses, are run. As such, in addition to conducting standard logistic regression models, the regression has also been run while including a Bonferroni Correction. The Bonferroni Correction generates a more conservative alpha value to be used to assess significance of an association. It is typically calculated by dividing the standard alpha value, typically 0.05, by the number of tests being run. For this project there are 8 total associations being tested. The Bonferroni-corrected significance value is 0.05/8 = 0.00625. In order to develop the needed confidence intervals for the odds ratios, a significance value of 0.005 was utilized and 99% confidence intervals were created.</p>
 </section>
@@ -3778,26 +3776,14 @@ Arrest/Incarceration None Once Two or More Legit Skip  Sum
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio  lower_ci
-child_arrest_jailYes health_cat child_arrest_jailYes  0.5816028 0.4121131
-                      upper_ci
-child_arrest_jailYes 0.8412877</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni adjusted confidence intervals, alpha=0.005</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>modb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni adjusted confidence intervals, alpha=0.005</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>modb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio  lower_ci
-child_arrest_jailYes health_cat child_arrest_jailYes  0.5816028 0.3714055
-                      upper_ci
-child_arrest_jailYes 0.9504736</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#linear regression (consider with alpha=0.05 and alpha=0.005)</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(bmi <span class="sc">~</span> child_arrest_jail, <span class="at">data =</span> final_data)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#linear regression (consider with alpha=0.05 and alpha=0.005)</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(bmi <span class="sc">~</span> child_arrest_jail, <span class="at">data =</span> final_data)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -3823,32 +3809,20 @@ Number of Fisher Scoring iterations: 2</code></pre>
 <section id="adjusted-physical-health-exposure" class="level4" data-number="3.4.4">
 <h4 data-number="3.4.4" class="anchored" data-anchor-id="adjusted-physical-health-exposure"><span class="header-section-number">3.4.4</span> Adjusted Physical Health ~ Exposure</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#physical health: general, bmi</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>mod1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#physical health: general, bmi</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>mod1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio lower_ci
-child_arrest_jailYes health_cat child_arrest_jailYes  0.6032338 0.418655
-                      upper_ci
-child_arrest_jailYes 0.8889438</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>modb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>modb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(health_cat <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio  lower_ci
-child_arrest_jailYes health_cat child_arrest_jailYes  0.6032338 0.3746887
-                     upper_ci
-child_arrest_jailYes 1.009694</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#linear regression</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="fu">glm</span>(bmi <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income, <span class="at">data =</span> final_data)</span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(moda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#linear regression</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="fu">glm</span>(bmi <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income, <span class="at">data =</span> final_data)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(moda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -3895,250 +3869,128 @@ Number of Fisher Scoring iterations: 2</code></pre>
 <section id="unadjusted-mental-health-exposure" class="level4" data-number="3.4.5">
 <h4 data-number="3.4.5" class="anchored" data-anchor-id="unadjusted-mental-health-exposure"><span class="header-section-number">3.4.5</span> Unadjusted Mental Health ~ Exposure</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mental health: counseling, depressive symptoms, suicide thoughts</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(counseling <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mental health: counseling, depressive symptoms, suicide thoughts</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(counseling <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio lower_ci
-child_arrest_jailYes counseling child_arrest_jailYes   1.813366 1.290335
-                     upper_ci
-child_arrest_jailYes 2.499288</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cesd <span class="sc">~</span> child_arrest_jail) <span class="co">#switch to CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cesd <span class="sc">~</span> child_arrest_jail) <span class="co">#switch to CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes    cesd child_arrest_jailYes   1.538883 1.133804 2.059199</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                              outcome             variable odds_ratio lower_ci
-child_arrest_jailYes suicide_thoughts child_arrest_jailYes   1.798263 1.167343
-                     upper_ci
-child_arrest_jailYes 2.672153</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>regb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(counseling <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>regb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(counseling <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio lower_ci
-child_arrest_jailYes counseling child_arrest_jailYes   1.813366 1.154026
-                     upper_ci
-child_arrest_jailYes 2.755082</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>regb2 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cesd <span class="sc">~</span> child_arrest_jail) <span class="co">#switch to CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>regb2 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cesd <span class="sc">~</span> child_arrest_jail) <span class="co">#switch to CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes    cesd child_arrest_jailYes   1.538883 1.026503 2.250988</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>regb3 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>regb3 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                              outcome             variable odds_ratio lower_ci
-child_arrest_jailYes suicide_thoughts child_arrest_jailYes   1.798263 1.009978
-                     upper_ci
-child_arrest_jailYes 3.007943</code></pre>
 </div>
 </div>
 </section>
 <section id="adjusted-mental-health-exposure" class="level4" data-number="3.4.6">
 <h4 data-number="3.4.6" class="anchored" data-anchor-id="adjusted-mental-health-exposure"><span class="header-section-number">3.4.6</span> Adjusted Mental Health ~ Exposure</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mental health: counseling, depressive symptoms, suicide thoughts</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>reg1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(counseling <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mental health: counseling, depressive symptoms, suicide thoughts</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>reg1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(counseling <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio lower_ci
-child_arrest_jailYes counseling child_arrest_jailYes   2.333014 1.633182
-                     upper_ci
-child_arrest_jailYes 3.278077</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>reg2a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cesd <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>reg2a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cesd <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes    cesd child_arrest_jailYes   1.737389 1.262492 2.361234</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>reg3a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>reg3a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                              outcome             variable odds_ratio lower_ci
-child_arrest_jailYes suicide_thoughts child_arrest_jailYes   1.933434 1.236937
-                     upper_ci
-child_arrest_jailYes 2.923874</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>regb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(counseling <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni correction</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>regb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(counseling <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                        outcome             variable odds_ratio lower_ci
-child_arrest_jailYes counseling child_arrest_jailYes   2.333014 1.454017
-                     upper_ci
-child_arrest_jailYes 3.637812</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>regb2a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cesd <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>regb2a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cesd <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes    cesd child_arrest_jailYes   1.737389 1.138468 2.594703</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>regb3a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>regb3a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(suicide_thoughts <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                              outcome             variable odds_ratio lower_ci
-child_arrest_jailYes suicide_thoughts child_arrest_jailYes   1.933434 1.065983
-                     upper_ci
-child_arrest_jailYes 3.311542</code></pre>
 </div>
 </div>
 </section>
 <section id="unadjusted-adverse-behaviors-exposure" class="level4" data-number="3.4.7">
 <h4 data-number="3.4.7" class="anchored" data-anchor-id="unadjusted-adverse-behaviors-exposure"><span class="header-section-number">3.4.7</span> Unadjusted Adverse Behaviors ~ Exposure</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co">#behaviors: smoking, alcohol, marijuana</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co">#behaviors: smoking, alcohol, marijuana</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes cig_dich child_arrest_jailYes   3.020154 2.366361  3.86848</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>test2 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>test2 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes alc_dich child_arrest_jailYes   1.452726 1.125257 1.889859</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>test3 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>test3 <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                       outcome             variable odds_ratio lower_ci
-child_arrest_jailYes mari_dich child_arrest_jailYes   3.129034 2.407933
-                     upper_ci
-child_arrest_jailYes 4.044977</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>testb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>testb1 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes cig_dich child_arrest_jailYes   3.020154 2.192851  4.18554</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>testb2 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>testb2 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes alc_dich child_arrest_jailYes   1.452726 1.039795 2.056594</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>testb3 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>testb3 <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                       outcome             variable odds_ratio lower_ci
-child_arrest_jailYes mari_dich child_arrest_jailYes   3.129034   2.2147
-                     upper_ci
-child_arrest_jailYes 4.381241</code></pre>
 </div>
 </div>
 </section>
 <section id="adjusted-adverse-behaviors-exposure" class="level4" data-number="3.4.8">
 <h4 data-number="3.4.8" class="anchored" data-anchor-id="adjusted-adverse-behaviors-exposure"><span class="header-section-number">3.4.8</span> Adjusted Adverse Behaviors ~ Exposure</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co">#behaviors: smoking, alcohol, marijuana</span></span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>test1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co">#behaviors: smoking, alcohol, marijuana</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>test1a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes cig_dich child_arrest_jailYes   2.568537  1.99249 3.321842</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>test2a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>test2a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes alc_dich child_arrest_jailYes   1.319648 1.009215 1.737538</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>test3a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>test3a <span class="ot">&lt;-</span> <span class="fu">model_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                       outcome             variable odds_ratio lower_ci
-child_arrest_jailYes mari_dich child_arrest_jailYes   2.496314 1.902208
-                     upper_ci
-child_arrest_jailYes 3.258974</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni</span></span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>testb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bonferroni</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>testb1a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(cig_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio lower_ci upper_ci
-child_arrest_jailYes cig_dich child_arrest_jailYes   2.568537 1.840489  3.60467</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>testb2a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>testb2a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(alc_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income) <span class="co">#redo with CESD</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                      outcome             variable odds_ratio  lower_ci
-child_arrest_jailYes alc_dich child_arrest_jailYes   1.319648 0.9287153
-                     upper_ci
-child_arrest_jailYes 1.897684</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>testb3a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>testb3a <span class="ot">&lt;-</span> <span class="fu">bon_OR</span>(mari_dich <span class="sc">~</span> child_arrest_jail <span class="sc">+</span> sex <span class="sc">+</span> hispanic <span class="sc">+</span> race <span class="sc">+</span> mom_edu <span class="sc">+</span> dad_edu <span class="sc">+</span> mom_income <span class="sc">+</span> dad_income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                       outcome             variable odds_ratio lower_ci
-child_arrest_jailYes mari_dich child_arrest_jailYes   2.496314 1.744191
-                     upper_ci
-child_arrest_jailYes 3.540769</code></pre>
 </div>
 </div>
 </section>
@@ -4152,27 +4004,27 @@ child_arrest_jailYes 3.540769</code></pre>
 <section id="demographic-variables-by-childhood-arrest-and-incarceration" class="level4" data-number="4.1.1">
 <h4 data-number="4.1.1" class="anchored" data-anchor-id="demographic-variables-by-childhood-arrest-and-incarceration"><span class="header-section-number">4.1.1</span> Demographic Variables by Childhood Arrest and Incarceration</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>demo_table <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
-<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex<span class="sc">:</span>race, insurance<span class="sc">:</span>income, child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
-<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Adult Participants by Childhood Arrest/Incarceration Status**&quot;</span>)</span>
-<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>demo_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>demo_table <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex<span class="sc">:</span>race, insurance<span class="sc">:</span>income, child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Adult Participants by Childhood Arrest/Incarceration Status**&quot;</span>)</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>demo_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="zljlclakxr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zljlclakxr table {
+<div id="ykxhxhawqs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ykxhxhawqs table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#zljlclakxr thead, #zljlclakxr tbody, #zljlclakxr tfoot, #zljlclakxr tr, #zljlclakxr td, #zljlclakxr th {
+#ykxhxhawqs thead, #ykxhxhawqs tbody, #ykxhxhawqs tfoot, #ykxhxhawqs tr, #ykxhxhawqs td, #ykxhxhawqs th {
 border-style: none;
 }
-#zljlclakxr p {
+#ykxhxhawqs p {
 margin: 0;
 padding: 0;
 }
-#zljlclakxr .gt_table {
+#ykxhxhawqs .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4197,11 +4049,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#zljlclakxr .gt_caption {
+#ykxhxhawqs .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#zljlclakxr .gt_title {
+#ykxhxhawqs .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4212,7 +4064,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#zljlclakxr .gt_subtitle {
+#ykxhxhawqs .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4223,7 +4075,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#zljlclakxr .gt_heading {
+#ykxhxhawqs .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4234,12 +4086,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#zljlclakxr .gt_bottom_border {
+#ykxhxhawqs .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#zljlclakxr .gt_col_headings {
+#ykxhxhawqs .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4253,7 +4105,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#zljlclakxr .gt_col_heading {
+#ykxhxhawqs .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4272,7 +4124,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#zljlclakxr .gt_column_spanner_outer {
+#ykxhxhawqs .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4283,13 +4135,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#zljlclakxr .gt_column_spanner_outer:first-child {
+#ykxhxhawqs .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#zljlclakxr .gt_column_spanner_outer:last-child {
+#ykxhxhawqs .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#zljlclakxr .gt_column_spanner {
+#ykxhxhawqs .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -4300,10 +4152,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#zljlclakxr .gt_spanner_row {
+#ykxhxhawqs .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#zljlclakxr .gt_group_heading {
+#ykxhxhawqs .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4328,7 +4180,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#zljlclakxr .gt_empty_group_heading {
+#ykxhxhawqs .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -4342,13 +4194,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#zljlclakxr .gt_from_md > :first-child {
+#ykxhxhawqs .gt_from_md > :first-child {
 margin-top: 0;
 }
-#zljlclakxr .gt_from_md > :last-child {
+#ykxhxhawqs .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#zljlclakxr .gt_row {
+#ykxhxhawqs .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4366,7 +4218,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#zljlclakxr .gt_stub {
+#ykxhxhawqs .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4378,7 +4230,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#zljlclakxr .gt_stub_row_group {
+#ykxhxhawqs .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4391,13 +4243,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#zljlclakxr .gt_row_group_first td {
+#ykxhxhawqs .gt_row_group_first td {
 border-top-width: 2px;
 }
-#zljlclakxr .gt_row_group_first th {
+#ykxhxhawqs .gt_row_group_first th {
 border-top-width: 2px;
 }
-#zljlclakxr .gt_summary_row {
+#ykxhxhawqs .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -4406,14 +4258,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#zljlclakxr .gt_first_summary_row {
+#ykxhxhawqs .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#zljlclakxr .gt_first_summary_row.thick {
+#ykxhxhawqs .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#zljlclakxr .gt_last_summary_row {
+#ykxhxhawqs .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4422,7 +4274,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#zljlclakxr .gt_grand_summary_row {
+#ykxhxhawqs .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -4431,7 +4283,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#zljlclakxr .gt_first_grand_summary_row {
+#ykxhxhawqs .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4440,7 +4292,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#zljlclakxr .gt_last_grand_summary_row_top {
+#ykxhxhawqs .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4449,10 +4301,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#zljlclakxr .gt_striped {
+#ykxhxhawqs .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#zljlclakxr .gt_table_body {
+#ykxhxhawqs .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4460,7 +4312,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#zljlclakxr .gt_footnotes {
+#ykxhxhawqs .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -4473,7 +4325,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#zljlclakxr .gt_footnote {
+#ykxhxhawqs .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -4481,7 +4333,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#zljlclakxr .gt_sourcenotes {
+#ykxhxhawqs .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -4494,64 +4346,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#zljlclakxr .gt_sourcenote {
+#ykxhxhawqs .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#zljlclakxr .gt_left {
+#ykxhxhawqs .gt_left {
 text-align: left;
 }
-#zljlclakxr .gt_center {
+#ykxhxhawqs .gt_center {
 text-align: center;
 }
-#zljlclakxr .gt_right {
+#ykxhxhawqs .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#zljlclakxr .gt_font_normal {
+#ykxhxhawqs .gt_font_normal {
 font-weight: normal;
 }
-#zljlclakxr .gt_font_bold {
+#ykxhxhawqs .gt_font_bold {
 font-weight: bold;
 }
-#zljlclakxr .gt_font_italic {
+#ykxhxhawqs .gt_font_italic {
 font-style: italic;
 }
-#zljlclakxr .gt_super {
+#ykxhxhawqs .gt_super {
 font-size: 65%;
 }
-#zljlclakxr .gt_footnote_marks {
+#ykxhxhawqs .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#zljlclakxr .gt_asterisk {
+#ykxhxhawqs .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#zljlclakxr .gt_indent_1 {
+#ykxhxhawqs .gt_indent_1 {
 text-indent: 5px;
 }
-#zljlclakxr .gt_indent_2 {
+#ykxhxhawqs .gt_indent_2 {
 text-indent: 10px;
 }
-#zljlclakxr .gt_indent_3 {
+#ykxhxhawqs .gt_indent_3 {
 text-indent: 15px;
 }
-#zljlclakxr .gt_indent_4 {
+#ykxhxhawqs .gt_indent_4 {
 text-indent: 20px;
 }
-#zljlclakxr .gt_indent_5 {
+#ykxhxhawqs .gt_indent_5 {
 text-indent: 25px;
 }
-#zljlclakxr .katex-display {
+#ykxhxhawqs .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#zljlclakxr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ykxhxhawqs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -4754,27 +4606,27 @@ height: 0px !important;
 
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>demo_table2 <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
-<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mom_edu, mom_income, dad_edu, dad_income, child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
-<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Participants&#39; Parents by Participant Arrest/Incarceration Status**&quot;</span>)</span>
-<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>demo_table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>demo_table2 <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mom_edu, mom_income, dad_edu, dad_income, child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Participants&#39; Parents by Participant Arrest/Incarceration Status**&quot;</span>)</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>demo_table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="aforlnrpqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aforlnrpqw table {
+<div id="sxksirhfhs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sxksirhfhs table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#aforlnrpqw thead, #aforlnrpqw tbody, #aforlnrpqw tfoot, #aforlnrpqw tr, #aforlnrpqw td, #aforlnrpqw th {
+#sxksirhfhs thead, #sxksirhfhs tbody, #sxksirhfhs tfoot, #sxksirhfhs tr, #sxksirhfhs td, #sxksirhfhs th {
 border-style: none;
 }
-#aforlnrpqw p {
+#sxksirhfhs p {
 margin: 0;
 padding: 0;
 }
-#aforlnrpqw .gt_table {
+#sxksirhfhs .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4799,11 +4651,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#aforlnrpqw .gt_caption {
+#sxksirhfhs .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#aforlnrpqw .gt_title {
+#sxksirhfhs .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4814,7 +4666,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#aforlnrpqw .gt_subtitle {
+#sxksirhfhs .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4825,7 +4677,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#aforlnrpqw .gt_heading {
+#sxksirhfhs .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4836,12 +4688,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#aforlnrpqw .gt_bottom_border {
+#sxksirhfhs .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aforlnrpqw .gt_col_headings {
+#sxksirhfhs .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4855,7 +4707,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#aforlnrpqw .gt_col_heading {
+#sxksirhfhs .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4874,7 +4726,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#aforlnrpqw .gt_column_spanner_outer {
+#sxksirhfhs .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4885,13 +4737,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#aforlnrpqw .gt_column_spanner_outer:first-child {
+#sxksirhfhs .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#aforlnrpqw .gt_column_spanner_outer:last-child {
+#sxksirhfhs .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#aforlnrpqw .gt_column_spanner {
+#sxksirhfhs .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -4902,10 +4754,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#aforlnrpqw .gt_spanner_row {
+#sxksirhfhs .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#aforlnrpqw .gt_group_heading {
+#sxksirhfhs .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4930,7 +4782,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#aforlnrpqw .gt_empty_group_heading {
+#sxksirhfhs .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -4944,13 +4796,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#aforlnrpqw .gt_from_md > :first-child {
+#sxksirhfhs .gt_from_md > :first-child {
 margin-top: 0;
 }
-#aforlnrpqw .gt_from_md > :last-child {
+#sxksirhfhs .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#aforlnrpqw .gt_row {
+#sxksirhfhs .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4968,7 +4820,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#aforlnrpqw .gt_stub {
+#sxksirhfhs .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4980,7 +4832,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aforlnrpqw .gt_stub_row_group {
+#sxksirhfhs .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4993,13 +4845,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#aforlnrpqw .gt_row_group_first td {
+#sxksirhfhs .gt_row_group_first td {
 border-top-width: 2px;
 }
-#aforlnrpqw .gt_row_group_first th {
+#sxksirhfhs .gt_row_group_first th {
 border-top-width: 2px;
 }
-#aforlnrpqw .gt_summary_row {
+#sxksirhfhs .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5008,14 +4860,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aforlnrpqw .gt_first_summary_row {
+#sxksirhfhs .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#aforlnrpqw .gt_first_summary_row.thick {
+#sxksirhfhs .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#aforlnrpqw .gt_last_summary_row {
+#sxksirhfhs .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5024,7 +4876,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aforlnrpqw .gt_grand_summary_row {
+#sxksirhfhs .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5033,7 +4885,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aforlnrpqw .gt_first_grand_summary_row {
+#sxksirhfhs .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5042,7 +4894,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#aforlnrpqw .gt_last_grand_summary_row_top {
+#sxksirhfhs .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5051,10 +4903,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#aforlnrpqw .gt_striped {
+#sxksirhfhs .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#aforlnrpqw .gt_table_body {
+#sxksirhfhs .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5062,7 +4914,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aforlnrpqw .gt_footnotes {
+#sxksirhfhs .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5075,7 +4927,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#aforlnrpqw .gt_footnote {
+#sxksirhfhs .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5083,7 +4935,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aforlnrpqw .gt_sourcenotes {
+#sxksirhfhs .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5096,64 +4948,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#aforlnrpqw .gt_sourcenote {
+#sxksirhfhs .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aforlnrpqw .gt_left {
+#sxksirhfhs .gt_left {
 text-align: left;
 }
-#aforlnrpqw .gt_center {
+#sxksirhfhs .gt_center {
 text-align: center;
 }
-#aforlnrpqw .gt_right {
+#sxksirhfhs .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#aforlnrpqw .gt_font_normal {
+#sxksirhfhs .gt_font_normal {
 font-weight: normal;
 }
-#aforlnrpqw .gt_font_bold {
+#sxksirhfhs .gt_font_bold {
 font-weight: bold;
 }
-#aforlnrpqw .gt_font_italic {
+#sxksirhfhs .gt_font_italic {
 font-style: italic;
 }
-#aforlnrpqw .gt_super {
+#sxksirhfhs .gt_super {
 font-size: 65%;
 }
-#aforlnrpqw .gt_footnote_marks {
+#sxksirhfhs .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#aforlnrpqw .gt_asterisk {
+#sxksirhfhs .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#aforlnrpqw .gt_indent_1 {
+#sxksirhfhs .gt_indent_1 {
 text-indent: 5px;
 }
-#aforlnrpqw .gt_indent_2 {
+#sxksirhfhs .gt_indent_2 {
 text-indent: 10px;
 }
-#aforlnrpqw .gt_indent_3 {
+#sxksirhfhs .gt_indent_3 {
 text-indent: 15px;
 }
-#aforlnrpqw .gt_indent_4 {
+#sxksirhfhs .gt_indent_4 {
 text-indent: 20px;
 }
-#aforlnrpqw .gt_indent_5 {
+#sxksirhfhs .gt_indent_5 {
 text-indent: 25px;
 }
-#aforlnrpqw .katex-display {
+#sxksirhfhs .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#aforlnrpqw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#sxksirhfhs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -5334,28 +5186,28 @@ height: 0px !important;
 <section id="health-outcomes-by-childhood-arrest-and-incarceration" class="level4" data-number="4.1.2">
 <h4 data-number="4.1.2" class="anchored" data-anchor-id="health-outcomes-by-childhood-arrest-and-incarceration"><span class="header-section-number">4.1.2</span> Health Outcomes by Childhood Arrest and Incarceration</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co">#split into two - outcomes used in reg models and outcomes not used</span></span>
-<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>out_table <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
-<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(health_cat, bmi, counseling, cesd, suicide_thoughts, cig_dich, alc_dich, mari_dich, child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
-<span id="cb141-6"><a href="#cb141-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Health Outcomes by Childhood Arrest/Incarceration Status**&quot;</span>)</span>
-<span id="cb141-7"><a href="#cb141-7" aria-hidden="true" tabindex="-1"></a>out_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co">#split into two - outcomes used in reg models and outcomes not used</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>out_table <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(health_cat, bmi, counseling, cesd, suicide_thoughts, cig_dich, alc_dich, mari_dich, child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Health Outcomes by Childhood Arrest/Incarceration Status**&quot;</span>)</span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>out_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="mitujfdtdl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mitujfdtdl table {
+<div id="zjkznqphji" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zjkznqphji table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#mitujfdtdl thead, #mitujfdtdl tbody, #mitujfdtdl tfoot, #mitujfdtdl tr, #mitujfdtdl td, #mitujfdtdl th {
+#zjkznqphji thead, #zjkznqphji tbody, #zjkznqphji tfoot, #zjkznqphji tr, #zjkznqphji td, #zjkznqphji th {
 border-style: none;
 }
-#mitujfdtdl p {
+#zjkznqphji p {
 margin: 0;
 padding: 0;
 }
-#mitujfdtdl .gt_table {
+#zjkznqphji .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -5380,11 +5232,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#mitujfdtdl .gt_caption {
+#zjkznqphji .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#mitujfdtdl .gt_title {
+#zjkznqphji .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -5395,7 +5247,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#mitujfdtdl .gt_subtitle {
+#zjkznqphji .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -5406,7 +5258,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#mitujfdtdl .gt_heading {
+#zjkznqphji .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -5417,12 +5269,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#mitujfdtdl .gt_bottom_border {
+#zjkznqphji .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#mitujfdtdl .gt_col_headings {
+#zjkznqphji .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5436,7 +5288,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#mitujfdtdl .gt_col_heading {
+#zjkznqphji .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5455,7 +5307,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#mitujfdtdl .gt_column_spanner_outer {
+#zjkznqphji .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5466,13 +5318,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#mitujfdtdl .gt_column_spanner_outer:first-child {
+#zjkznqphji .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#mitujfdtdl .gt_column_spanner_outer:last-child {
+#zjkznqphji .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#mitujfdtdl .gt_column_spanner {
+#zjkznqphji .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5483,10 +5335,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#mitujfdtdl .gt_spanner_row {
+#zjkznqphji .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#mitujfdtdl .gt_group_heading {
+#zjkznqphji .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5511,7 +5363,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#mitujfdtdl .gt_empty_group_heading {
+#zjkznqphji .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -5525,13 +5377,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#mitujfdtdl .gt_from_md > :first-child {
+#zjkznqphji .gt_from_md > :first-child {
 margin-top: 0;
 }
-#mitujfdtdl .gt_from_md > :last-child {
+#zjkznqphji .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#mitujfdtdl .gt_row {
+#zjkznqphji .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5549,7 +5401,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#mitujfdtdl .gt_stub {
+#zjkznqphji .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5561,7 +5413,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#mitujfdtdl .gt_stub_row_group {
+#zjkznqphji .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5574,13 +5426,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#mitujfdtdl .gt_row_group_first td {
+#zjkznqphji .gt_row_group_first td {
 border-top-width: 2px;
 }
-#mitujfdtdl .gt_row_group_first th {
+#zjkznqphji .gt_row_group_first th {
 border-top-width: 2px;
 }
-#mitujfdtdl .gt_summary_row {
+#zjkznqphji .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5589,14 +5441,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#mitujfdtdl .gt_first_summary_row {
+#zjkznqphji .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#mitujfdtdl .gt_first_summary_row.thick {
+#zjkznqphji .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#mitujfdtdl .gt_last_summary_row {
+#zjkznqphji .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5605,7 +5457,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#mitujfdtdl .gt_grand_summary_row {
+#zjkznqphji .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5614,7 +5466,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#mitujfdtdl .gt_first_grand_summary_row {
+#zjkznqphji .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5623,7 +5475,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#mitujfdtdl .gt_last_grand_summary_row_top {
+#zjkznqphji .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5632,10 +5484,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#mitujfdtdl .gt_striped {
+#zjkznqphji .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#mitujfdtdl .gt_table_body {
+#zjkznqphji .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5643,7 +5495,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#mitujfdtdl .gt_footnotes {
+#zjkznqphji .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5656,7 +5508,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#mitujfdtdl .gt_footnote {
+#zjkznqphji .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5664,7 +5516,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#mitujfdtdl .gt_sourcenotes {
+#zjkznqphji .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5677,64 +5529,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#mitujfdtdl .gt_sourcenote {
+#zjkznqphji .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#mitujfdtdl .gt_left {
+#zjkznqphji .gt_left {
 text-align: left;
 }
-#mitujfdtdl .gt_center {
+#zjkznqphji .gt_center {
 text-align: center;
 }
-#mitujfdtdl .gt_right {
+#zjkznqphji .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#mitujfdtdl .gt_font_normal {
+#zjkznqphji .gt_font_normal {
 font-weight: normal;
 }
-#mitujfdtdl .gt_font_bold {
+#zjkznqphji .gt_font_bold {
 font-weight: bold;
 }
-#mitujfdtdl .gt_font_italic {
+#zjkznqphji .gt_font_italic {
 font-style: italic;
 }
-#mitujfdtdl .gt_super {
+#zjkznqphji .gt_super {
 font-size: 65%;
 }
-#mitujfdtdl .gt_footnote_marks {
+#zjkznqphji .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#mitujfdtdl .gt_asterisk {
+#zjkznqphji .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#mitujfdtdl .gt_indent_1 {
+#zjkznqphji .gt_indent_1 {
 text-indent: 5px;
 }
-#mitujfdtdl .gt_indent_2 {
+#zjkznqphji .gt_indent_2 {
 text-indent: 10px;
 }
-#mitujfdtdl .gt_indent_3 {
+#zjkznqphji .gt_indent_3 {
 text-indent: 15px;
 }
-#mitujfdtdl .gt_indent_4 {
+#zjkznqphji .gt_indent_4 {
 text-indent: 20px;
 }
-#mitujfdtdl .gt_indent_5 {
+#zjkznqphji .gt_indent_5 {
 text-indent: 25px;
 }
-#mitujfdtdl .katex-display {
+#zjkznqphji .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#mitujfdtdl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zjkznqphji div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -5829,29 +5681,29 @@ height: 0px !important;
 
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>out_table2 <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
-<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(high_chol, high_bp, diabetes, heart_disease, depression, ptsd, anxiety, adhd, </span>
-<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>         suicide_attempt, prescript_drugs, prescript_drug_type, marijuana, cocaine, </span>
-<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>         crystal_meth, other, cig_days, alcohol_days, mari_days, child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
-<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
-<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Additional Health Outcomes by Participant Arrest/Incarceration Status**&quot;</span>)</span>
-<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>out_table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>out_table2 <span class="ot">&lt;-</span> final_data <span class="sc">|&gt;</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(high_chol, high_bp, diabetes, heart_disease, depression, ptsd, anxiety, adhd, </span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>         suicide_attempt, prescript_drugs, prescript_drug_type, marijuana, cocaine, </span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>         crystal_meth, other, cig_days, alcohol_days, mari_days, child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> child_arrest_jail) <span class="sc">|&gt;</span></span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">|&gt;</span></span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">&quot;**Descriptive Statistics of Additional Health Outcomes by Participant Arrest/Incarceration Status**&quot;</span>)</span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>out_table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lygbedfmen" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lygbedfmen table {
+<div id="jhxfmfmnvc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jhxfmfmnvc table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#lygbedfmen thead, #lygbedfmen tbody, #lygbedfmen tfoot, #lygbedfmen tr, #lygbedfmen td, #lygbedfmen th {
+#jhxfmfmnvc thead, #jhxfmfmnvc tbody, #jhxfmfmnvc tfoot, #jhxfmfmnvc tr, #jhxfmfmnvc td, #jhxfmfmnvc th {
 border-style: none;
 }
-#lygbedfmen p {
+#jhxfmfmnvc p {
 margin: 0;
 padding: 0;
 }
-#lygbedfmen .gt_table {
+#jhxfmfmnvc .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -5876,11 +5728,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#lygbedfmen .gt_caption {
+#jhxfmfmnvc .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#lygbedfmen .gt_title {
+#jhxfmfmnvc .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -5891,7 +5743,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#lygbedfmen .gt_subtitle {
+#jhxfmfmnvc .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -5902,7 +5754,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#lygbedfmen .gt_heading {
+#jhxfmfmnvc .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -5913,12 +5765,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#lygbedfmen .gt_bottom_border {
+#jhxfmfmnvc .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lygbedfmen .gt_col_headings {
+#jhxfmfmnvc .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5932,7 +5784,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#lygbedfmen .gt_col_heading {
+#jhxfmfmnvc .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5951,7 +5803,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#lygbedfmen .gt_column_spanner_outer {
+#jhxfmfmnvc .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5962,13 +5814,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#lygbedfmen .gt_column_spanner_outer:first-child {
+#jhxfmfmnvc .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#lygbedfmen .gt_column_spanner_outer:last-child {
+#jhxfmfmnvc .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#lygbedfmen .gt_column_spanner {
+#jhxfmfmnvc .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5979,10 +5831,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#lygbedfmen .gt_spanner_row {
+#jhxfmfmnvc .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#lygbedfmen .gt_group_heading {
+#jhxfmfmnvc .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -6007,7 +5859,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#lygbedfmen .gt_empty_group_heading {
+#jhxfmfmnvc .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -6021,13 +5873,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#lygbedfmen .gt_from_md > :first-child {
+#jhxfmfmnvc .gt_from_md > :first-child {
 margin-top: 0;
 }
-#lygbedfmen .gt_from_md > :last-child {
+#jhxfmfmnvc .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#lygbedfmen .gt_row {
+#jhxfmfmnvc .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -6045,7 +5897,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#lygbedfmen .gt_stub {
+#jhxfmfmnvc .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -6057,7 +5909,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lygbedfmen .gt_stub_row_group {
+#jhxfmfmnvc .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -6070,13 +5922,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#lygbedfmen .gt_row_group_first td {
+#jhxfmfmnvc .gt_row_group_first td {
 border-top-width: 2px;
 }
-#lygbedfmen .gt_row_group_first th {
+#jhxfmfmnvc .gt_row_group_first th {
 border-top-width: 2px;
 }
-#lygbedfmen .gt_summary_row {
+#jhxfmfmnvc .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -6085,14 +5937,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lygbedfmen .gt_first_summary_row {
+#jhxfmfmnvc .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#lygbedfmen .gt_first_summary_row.thick {
+#jhxfmfmnvc .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#lygbedfmen .gt_last_summary_row {
+#jhxfmfmnvc .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -6101,7 +5953,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lygbedfmen .gt_grand_summary_row {
+#jhxfmfmnvc .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -6110,7 +5962,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lygbedfmen .gt_first_grand_summary_row {
+#jhxfmfmnvc .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -6119,7 +5971,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#lygbedfmen .gt_last_grand_summary_row_top {
+#jhxfmfmnvc .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -6128,10 +5980,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#lygbedfmen .gt_striped {
+#jhxfmfmnvc .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#lygbedfmen .gt_table_body {
+#jhxfmfmnvc .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -6139,7 +5991,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lygbedfmen .gt_footnotes {
+#jhxfmfmnvc .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -6152,7 +6004,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#lygbedfmen .gt_footnote {
+#jhxfmfmnvc .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -6160,7 +6012,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lygbedfmen .gt_sourcenotes {
+#jhxfmfmnvc .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -6173,64 +6025,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#lygbedfmen .gt_sourcenote {
+#jhxfmfmnvc .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lygbedfmen .gt_left {
+#jhxfmfmnvc .gt_left {
 text-align: left;
 }
-#lygbedfmen .gt_center {
+#jhxfmfmnvc .gt_center {
 text-align: center;
 }
-#lygbedfmen .gt_right {
+#jhxfmfmnvc .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#lygbedfmen .gt_font_normal {
+#jhxfmfmnvc .gt_font_normal {
 font-weight: normal;
 }
-#lygbedfmen .gt_font_bold {
+#jhxfmfmnvc .gt_font_bold {
 font-weight: bold;
 }
-#lygbedfmen .gt_font_italic {
+#jhxfmfmnvc .gt_font_italic {
 font-style: italic;
 }
-#lygbedfmen .gt_super {
+#jhxfmfmnvc .gt_super {
 font-size: 65%;
 }
-#lygbedfmen .gt_footnote_marks {
+#jhxfmfmnvc .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#lygbedfmen .gt_asterisk {
+#jhxfmfmnvc .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#lygbedfmen .gt_indent_1 {
+#jhxfmfmnvc .gt_indent_1 {
 text-indent: 5px;
 }
-#lygbedfmen .gt_indent_2 {
+#jhxfmfmnvc .gt_indent_2 {
 text-indent: 10px;
 }
-#lygbedfmen .gt_indent_3 {
+#jhxfmfmnvc .gt_indent_3 {
 text-indent: 15px;
 }
-#lygbedfmen .gt_indent_4 {
+#jhxfmfmnvc .gt_indent_4 {
 text-indent: 20px;
 }
-#lygbedfmen .gt_indent_5 {
+#jhxfmfmnvc .gt_indent_5 {
 text-indent: 25px;
 }
-#lygbedfmen .katex-display {
+#jhxfmfmnvc .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#lygbedfmen div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jhxfmfmnvc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -6537,9 +6389,9 @@ height: 0px !important;
 <section id="unadjusted" class="level4" data-number="4.2.1">
 <h4 data-number="4.2.1" class="anchored" data-anchor-id="unadjusted"><span class="header-section-number">4.2.1</span> Unadjusted</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>unadj_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(mod1, reg1, reg2, reg3, test1, test2, test3) <span class="sc">|&gt;</span></span>
-<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
-<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>unadj_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>unadj_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(mod1, reg1, reg2, reg3, test1, test2, test3) <span class="sc">|&gt;</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>unadj_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               outcome odds_ratio  lower_ci  upper_ci
 child_arrest_jailYes        health_cat  0.5816028 0.4121131 0.8412877
@@ -6555,9 +6407,9 @@ child_arrest_jailYes6        mari_dich  3.1290338 2.4079334 4.0449771</code></pr
 <section id="unadjusted-bonferroni-corrected" class="level4" data-number="4.2.2">
 <h4 data-number="4.2.2" class="anchored" data-anchor-id="unadjusted-bonferroni-corrected"><span class="header-section-number">4.2.2</span> Unadjusted Bonferroni-Corrected</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>unadj_bon_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(modb1, regb1, regb2, regb3, testb1, testb2, testb3) <span class="sc">|&gt;</span></span>
-<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
-<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>unadj_bon_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>unadj_bon_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(modb1, regb1, regb2, regb3, testb1, testb2, testb3) <span class="sc">|&gt;</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>unadj_bon_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               outcome odds_ratio  lower_ci  upper_ci
 child_arrest_jailYes        health_cat  0.5816028 0.3714055 0.9504736
@@ -6574,9 +6426,9 @@ child_arrest_jailYes6        mari_dich  3.1290338 2.2146999 4.3812408</code></pr
 <section id="adjusted" class="level4" data-number="4.2.3">
 <h4 data-number="4.2.3" class="anchored" data-anchor-id="adjusted"><span class="header-section-number">4.2.3</span> Adjusted</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>adj_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(mod1a, reg1a, reg2a, reg3a, test1a, test2a, test3a) <span class="sc">|&gt;</span></span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>adj_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>adj_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(mod1a, reg1a, reg2a, reg3a, test1a, test2a, test3a) <span class="sc">|&gt;</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>adj_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               outcome odds_ratio lower_ci  upper_ci
 child_arrest_jailYes        health_cat  0.6032338 0.418655 0.8889438
@@ -6592,9 +6444,9 @@ child_arrest_jailYes6        mari_dich  2.4963140 1.902208 3.2589739</code></pre
 <section id="adjusted-bonferroni-corrected" class="level4" data-number="4.2.4">
 <h4 data-number="4.2.4" class="anchored" data-anchor-id="adjusted-bonferroni-corrected"><span class="header-section-number">4.2.4</span> Adjusted, Bonferroni-Corrected</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>adj_bon_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(modb1a, regb1a, regb2a, regb3a, testb1a, testb2a, testb3a) <span class="sc">|&gt;</span></span>
-<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
-<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>adj_bon_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>adj_bon_OR <span class="ot">&lt;-</span> <span class="fu">rbind</span>(modb1a, regb1a, regb2a, regb3a, testb1a, testb2a, testb3a) <span class="sc">|&gt;</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>variable)</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>adj_bon_OR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               outcome odds_ratio  lower_ci upper_ci
 child_arrest_jailYes        health_cat  0.6032338 0.3746887 1.009694
@@ -6608,21 +6460,21 @@ child_arrest_jailYes6        mari_dich  2.4963140 1.7441912 3.540769</code></pre
 </div>
 <p>When the models are adjusted for possible covariates and the Bonferroni correction is applied, the following results were found. Those who were arrested or incarcerated in childhood had higher odds of psychological/emotional counseling, depressive symptoms, suicidal thoughts, cigarette usage, and marijuana usage.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>adj_bon_OR<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">factor</span>(adj_bon_OR<span class="sc">$</span>outcome, <span class="at">levels =</span> <span class="fu">unique</span>(adj_bon_OR<span class="sc">$</span>outcome))</span>
-<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>forest_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> adj_bon_OR, <span class="fu">aes</span>(<span class="at">x =</span> odds_ratio, <span class="at">y =</span> outcome, <span class="at">colour =</span> outcome)) <span class="sc">+</span></span>
-<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower_ci, <span class="at">xmax =</span> upper_ci), <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb151-5"><a href="#cb151-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb151-6"><a href="#cb151-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb151-7"><a href="#cb151-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Odds of Health Outcomes based on Childhood Arrest/Incarceration&quot;</span>,  </span>
-<span id="cb151-8"><a href="#cb151-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Adjusted Odds Ratios&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Type of Health Outcome&quot;</span>) <span class="sc">+</span></span>
-<span id="cb151-9"><a href="#cb151-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="sc">+</span></span>
-<span id="cb151-10"><a href="#cb151-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>adj_bon_OR<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">factor</span>(adj_bon_OR<span class="sc">$</span>outcome, <span class="at">levels =</span> <span class="fu">unique</span>(adj_bon_OR<span class="sc">$</span>outcome))</span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>forest_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> adj_bon_OR, <span class="fu">aes</span>(<span class="at">x =</span> odds_ratio, <span class="at">y =</span> outcome, <span class="at">colour =</span> outcome)) <span class="sc">+</span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower_ci, <span class="at">xmax =</span> upper_ci), <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb123-6"><a href="#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb123-7"><a href="#cb123-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Odds of Health Outcomes based on Childhood Arrest/Incarceration&quot;</span>,  </span>
+<span id="cb123-8"><a href="#cb123-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Adjusted Odds Ratios&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Type of Health Outcome&quot;</span>) <span class="sc">+</span></span>
+<span id="cb123-9"><a href="#cb123-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>) <span class="sc">+</span></span>
+<span id="cb123-10"><a href="#cb123-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>forest_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>forest_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
