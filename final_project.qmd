@@ -12,7 +12,7 @@ embed-resources: true
 
 ## Overview {#sec-overview}
 
-The goal of this project is to determine the association between experiencing an arrest in childhood and adverse health outcomes in adulthood. The project is focused on mental health outcomes, such as depression and suicidality. To better understand the potential relationship, the influence of certain coping mechanisms (alcohol and substance use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant risky behaviors and mental health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary health and behavior outcomes.
+The goal of this project is to determine the association between experiencing an arrest in childhood and adverse health outcomes in adulthood. The project is focused on health outcomes, such as depression and suicidality, and adverse health behaviors. To better understand the potential relationship, the influence of certain coping mechanisms (cigarette, alcohol and marijuana use) will be assessed. The question will be addressed using publicly available Wave I and Wave IV data from the National Longitudinal Study of Adolescent to Adult Health (Add Health Study). Through discussion with Dr. Elizabeth Nesoff, I was able to specify my question to examine relevant risky behaviors and health outcomes. Additionally, I determined an analysis strategy with Dr. Nick Seewald to conduct logistic regression on my binary health and behavior outcomes.
 
 GitHub Repository: <https://github.com/moewatson/BMIN503_Final_Project>
 
@@ -22,11 +22,11 @@ Experience with incarceration has been associated with a variety of negative hea
 
 In 2022, there were more than 1.2 million adults detained in prison (2). There were over 420,000 youth arrests made in 2020 and more than 25,000 children under the age of 18 were held in various juvenile justice facilities (3,4). While there are fewer children involved with the justice system than adults, children experience the system at an important period of development. It is necessary to understand the potential lasting effects of the justice system given the multitude of health factors and magnitude of individuals impacted by the system. Adverse Childhood Experiences (ACEs) are potentially traumatic events which have been linked to a multitude of health outcomes. ACEs fall under three categories: Abuse (physical, emotional, or sexual), Neglect (physical or emotional), and Household Challenges (incarceration, mental illness, substance misuse or dependence, intimate partner violence, or parental separation/divorce) (5). More than 60% of US adults report experiencing at least one ACE before reaching 18 (6). Experiencing ACEs are associated with higher risk of chronic diseases, substance use, and poor mental health (4). Further, past studies have found an association between childhood arrest and increased suicidality as well as an association between childhood incarceration and worse general health (7,8). More research is needed to understand the long-lasting impacts of the carceral system on health.
 
-This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors. Epidemiology helps to understand the magnitude of incarcerations effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates. Dr. Nesoff provided important knowledge related to how one's neighborhood context can affect substance use and other risky behaviors. She assisted me in framing this project within the field of social epidemiology. Dr. Seewald provided helpful suggestions for my analysis, especially related to the usage of a Bonferroni correction in order to address the possibility of Type I Error when running multiple hypothesis tests within the same study.
+This project is interdisciplinary as it ties together factors from the fields of epidemiology, criminology, and sociology to assess a complex issue. Individuals can become connected to the justice system through societal, community, interpersonal, and individual reasons. In order to determine how to effectively reduce the negative results of incarceration, interventions need to be developed which address the variety of avenues creating risk factors. Epidemiology helps to understand the magnitude of incarceration's effect on health. Sociology provides context into how people live and the factors which impact their decisions and opportunities in life. Finally, criminology offers specific insights into the justice system and how it operates. Dr. Nesoff provided important knowledge related to how one's neighborhood context can affect substance use and other risky behaviors. She assisted me in framing this project within the field of social epidemiology. Dr. Seewald provided helpful suggestions for my analysis, especially related to the usage of a Bonferroni correction in order to address the possibility of Type I Error when running multiple hypothesis tests within the same study.
 
 ## Methods {#sec-methods}
 
-Public-use data from the Add Health study will be analyzed below. Wave 1 data was collected in 1994-95 when participants were in grades 7-12 and first recruited into the study. Wave 4 data was collected in 2008 when participants were aged 24-32. Wave V data has been collected, but is not yet publically available. In Wave 4, participants answered questions about criminal justice history and personal health. This data allows for information to be gathered the about experience with the justice system in childhood and current (adulthood) health. It is important to note the role of temporality in this data and subsequent analysis. In order to ensure that the health outcomes occurred after the exposure of the justice system, only questions with a time component will be considered in the final analysis. These time components include the following: "In the last 30 days", "In the last 7 days", "In the previous 12 months", etc. Questions which include the wording such as, "have you ever", will not be used for the final analysis.
+Public-use data from the Add Health study will be analyzed below. Wave 1 data was collected in 1994-95 when participants were in grades 7-12 and first recruited into the study. Wave 4 data was collected in 2008 when participants were aged 24-32. Wave V data has been collected, but is not yet publicly available. In Wave 4, participants answered questions about criminal justice history and personal health. This data allows for information to be gathered the about experience with the justice system in childhood and current (adulthood) health. It is important to note the role of temporality in this data and subsequent analysis. In order to ensure that the health outcomes occurred after the exposure of the justice system, only questions with a time component will be considered in the final analysis. These time components include the following: "In the last 30 days", "In the last 7 days", "In the previous 12 months", etc. Questions which include the wording such as, "have you ever", will not be used for the final analysis.
 
 In order to answer the research question, relevant demographic, exposure, and outcome variables will be selected from the original data. Any categorical variables will be recoded as factors with descriptive levels. For analysis, some variables will be dichotomized. After the cleaning of the data, various descriptive statistics will be presented through tables and figures. Finally, logistic and linear regression models will be utilized to analyze the data. Both unadjusted and adjusted models will also be presented after applying an accurate Bonferroni correction to account for potential type I error.
 
@@ -84,15 +84,18 @@ w1_var <- w1_var |>
                           H1GI6D == 1 ~ 4, #asian/pacific islander
                           H1GI6E == 1 ~ 5),#other
          race = factor(race, levels = c(1:5), labels = c("White", "Black/African American", 
-                                                         "AI/NA", "Asian/Pacific Islander", "Other")),
+                                                         "AI/NA", "Asian/Pacific Islander", 
+                                                         "Other")),
          mom_edu = case_when(H1RM1 %in% c(1,2,10) ~ 1, #less than HS
                              H1RM1 %in% c(3,6) ~ 2, #trade
                              H1RM1 %in% c(4,5) ~ 3, #HS/GED
                              H1RM1 == 7 ~ 4, #some college
                              H1RM1 %in% c(8,9) ~ 5, #college grad +
                              H1RM1 %in% c(96,97) ~ 6), #legit skip
-         mom_edu = factor(mom_edu, levels = c(1:6), labels = c("Less than HS", "Trade/Vocational", 
-                                                               "HS/GED", "Some College", "College and More", "Legit Skip")),
+         mom_edu = factor(mom_edu, levels = c(1:6), labels = c("Less than HS", 
+                                                               "Trade/Vocational", 
+                                                               "HS/GED", "Some College", 
+                                                               "College and More", "Legit Skip")),
          mom_income = factor(H1RM5, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          mom_pubasst = factor(H1RM9, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          dad_edu = case_when(H1RF1 %in% c(1,2,10) ~ 1, #less than HS
@@ -101,8 +104,10 @@ w1_var <- w1_var |>
                              H1RF1 == 7 ~ 4, #some college
                              H1RF1 %in% c(8,9) ~ 5, #college grad +
                              H1RF1 %in% c(96,97) ~ 6), #legit skip
-         dad_edu = factor(dad_edu, levels = c(1:6), labels = c("Less than HS", "Trade/Vocational", 
-                                                               "HS/GED", "Some College", "College and More", "Legit Skip")),
+         dad_edu = factor(dad_edu, levels = c(1:6), labels = c("Less than HS", 
+                                                               "Trade/Vocational", 
+                                                               "HS/GED", "Some College", 
+                                                               "College and More", "Legit Skip")),
          dad_income = factor(H1RF5, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          dad_pubasst = factor(H1RF9, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip"))
          )
@@ -130,32 +135,42 @@ w4_fctvar <- w4_var |>
                                H4ED2 %in% c(4,5) ~ 3,
                                H4ED2 == 6 ~ 4,
                                H4ED2 %in% c(7:13) ~ 5),
-         education = factor(education, levels = c(1:5), labels = c("Less than HS", "HS", "Vocational/Tech", 
-                                                                   "Some College", "College Grad or More")),
+         education = factor(education, levels = c(1:5), labels = c("Less than HS", "HS", 
+                                                                   "Vocational/Tech", 
+                                                                   "Some College", 
+                                                                   "College Grad or More")),
          employment = factor(H4LM11, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          income = case_when(H4EC1 %in% c(1:6) ~ 1,
                             H4EC1 %in% c(7,8) ~ 2,
                             H4EC1 %in% c(9,10) ~ 3,
                             H4EC1 %in% c(11,12) ~ 4),
-         income = factor(income, levels = c(1:4), labels = c("< 30k", "30-<50k", "50-<100k", "100k+")),
+         income = factor(income, levels = c(1:4), labels = c("< 30k", "30-<50k", 
+                                                             "50-<100k", "100k+")),
          arrest = factor(H4CJ1, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          arrest_age = case_when(H4CJ3 %in% c(18:32) | H4CJ4 %in% c(18:29) ~ 0,
                                 H4CJ3 %in% c(12:17) | H4CJ4 %in% c(10:17) ~ 1,
                                 H4CJ3 == 97 | H4CJ4 == 97 ~ 2),
-         arrest_agefct = factor(arrest_age, levels = c(0,1,2), labels = c("Over 18", "Under 18", "Legit Skip")),
+         arrest_agefct = factor(arrest_age, levels = c(0,1,2), labels = c("Over 18", 
+                                                                          "Under 18", 
+                                                                          "Legit Skip")),
          arrest_times = case_when(H4CJ5 == 1 ~ 1,
                                   H4CJ5 == 2 ~ 2,
                                   H4CJ5 == 3 ~ 3,
                                   H4CJ5 %in% c(4:20) ~ 4, #4 or more
                                   H4CJ5 == 997 ~ 5),
-         arrest_times = factor(arrest_times, levels = c(1:5), labels = c("Once", "Twice", "Three", 
-                                                                         "Four or More", "Legit Skip")), #arrests before 18th bday
+         arrest_times = factor(arrest_times, levels = c(1:5), labels = c("Once", "Twice", 
+                                                                         "Three", 
+                                                                         "Four or More", 
+                                                                         "Legit Skip")),
          jail = factor(H4CJ17, levels = c(0,1,7), labels = c("No", "Yes", "Legit Skip")),
          jail_age = case_when(H4CJ19 %in% c(18:32) | H4CJ20 %in% c(18:30) ~ 0,
                               H4CJ19 <= 17 | H4CJ20 <= 17 ~ 1,
                               H4CJ19 == 97 | H4CJ20 == 97 ~ 2),
-         jail_agefct = factor(jail_age, levels = c(0,1,2), labels = c("Over 18", "Under 18", "Legit Skip")),
-         jail_times = factor(H4CJ18, levels = c(1,2,7), labels = c("Once", "More than Once", "Legit Skip")),
+         jail_agefct = factor(jail_age, levels = c(0,1,2), labels = c("Over 18", 
+                                                                      "Under 18", 
+                                                                      "Legit Skip")),
+         jail_times = factor(H4CJ18, levels = c(1,2,7), labels = c("Once", "More than Once", 
+                                                                   "Legit Skip")),
          child_arrest_jail = case_when(arrest_age == 1 | jail_age == 1 ~ 1,
                                        arrest_age %in% c(0,2) | jail_age %in% c(0,2) ~ 0),
          child_arrest_jail = factor(child_arrest_jail, levels = c(0,1), labels = c("No", "Yes")),
@@ -173,10 +188,11 @@ w4_fctvar <- w4_var |>
                                    H4CJ7A == 7 | H4CJ7B == 7 | H4CJ7C == 7 | H4CJ7D == 7 | 
                                      H4CJ7E == 7 | H4CJ7F == 7 | H4CJ7G == 7 | H4CJ7H == 7 | 
                                      H4CJ7I == 7 | H4CJ7J == 7 | H4CJ7K == 7 ~ 12), #other
-         arrest_charge = factor(arrest_charge, levels = c(1:12), labels = c("DUI", "Other Alcohol-Related", 
-                                                                            "Marijuana", "Other Drug", "Robbery", 
-                                                                            "Theft", "Forcible Rape", "Aggravated Assault Etc", 
-                                                                            "Simple Assault", "Fraud/Forgery", "Other", "Legit Skip"))
+         arrest_charge = factor(arrest_charge, levels = c(1:12), 
+                                labels = c("DUI", "Other Alcohol-Related", "Marijuana", 
+                                           "Other Drug", "Robbery", "Theft", "Forcible Rape", 
+                                           "Aggravated Assault Etc", "Simple Assault", 
+                                           "Fraud/Forgery", "Other", "Legit Skip"))
          )
 
 ```
@@ -207,7 +223,8 @@ w4_fctvar <- w4_fctvar |>
          adhd = factor(H4ID5L, levels = c(0,1), labels = c("No", "Yes")),
          bmi = H4BMI,
          bmi_cat = factor(H4BMICLS, levels = c(1:6), 
-                          labels = c("Underweight: <18.5", "Normal: 18.5-<25", "Overweight: 25-<30", 
+                          labels = c("Underweight: <18.5", "Normal: 18.5-<25", 
+                                     "Overweight: 25-<30", 
                                      "Obese I: 30-<35", "Obese II: 35-<40", "Obese III: 40+")),
          self_intelligent = case_when(H4MH7 %in% c(1,2) ~ 1,
                                       H4MH7 == 3 ~ 2,
@@ -264,7 +281,8 @@ w4_fctvar <- w4_fctvar |>
                                          H4TO64A == 7 | H4TO64B == 7 | 
                                            H4TO64C == 7 | H4TO64D == 7 ~ 5), #pain killer
          prescript_drug_type = factor(prescript_drug_type, levels = c(1:5), 
-                                      labels = c("Sedative", "Tranquilizer", "Stimulant", "Pain Killer", "Legit Skip")),
+                                      labels = c("Sedative", "Tranquilizer", "Stimulant", 
+                                                 "Pain Killer", "Legit Skip")),
          marijuana = factor(H4TO65B, levels = c(0,1), labels = c("No", "Yes")),
          cocaine = factor(H4TO65C, levels = c(0,1), labels = c("No", "Yes")),
          crystal_meth = factor(H4TO65B, levels = c(0,1), labels = c("No", "Yes")),
@@ -396,16 +414,19 @@ addmargins(table(final_data$child_arrest_jail, final_data$hispanic,
                  dnn = c("Childhood Arrest/Incarceration", "Hispanic")))
 
 ggplot(final_data, aes(child_arrest_jail, fill = sex)) + geom_bar(position = "dodge") + 
-  scale_fill_brewer(palette = "Paired") + ggtitle("Childhood Arrest or Incarceration by Sex (n=4237)") +
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Childhood Arrest or Incarceration by Sex (n=4237)") +
   labs(x = "History of Childhood Arrest or Incarceration")
 
 ggplot(final_data, aes(child_arrest_jail, fill = race)) + geom_bar(position = "dodge") + 
-  scale_fill_brewer(palette = "Paired") + ggtitle("Childhood Arrest or Incarceration by Race (n=4237)") +
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Childhood Arrest or Incarceration by Race (n=4237)") +
   labs(x = "History of Childhood Arrest or Incarceration")
 
 final_data11 <- final_data |>
   filter(arrest_charge != "Legit Skip" & arrest_agefct == "Under 18")
-ggplot(final_data11, aes(x = reorder(arrest_charge, arrest_charge, FUN = length))) + geom_bar() + coord_flip() + 
+ggplot(final_data11, aes(x = reorder(arrest_charge, arrest_charge, FUN = length))) + 
+  geom_bar() + coord_flip() + 
   ggtitle("Types of Arrest Charges for Those Under 18 (n=287)") + labs(x = "Reason for Arrest")
 
 ```
@@ -417,16 +438,38 @@ Various demographic variables are presented by exposure status. This provides a 
 ```{r}
 #| label: Outcome
 
-ggplot(final_data, aes(health_cat, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Self-Reported Health by Sex (N=4237)") + labs(x = "Health Status Category", y = "Count")
-ggplot(final_data, aes(sex, bmi)) + geom_boxplot() + ggtitle("Participants' BMI by Sex (N = 4237)") + labs(x = "Sex", y= "BMI")
+ggplot(final_data, aes(health_cat, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Self-Reported Health by Sex (N=4237)") + 
+  labs(x = "Health Status Category", y = "Count")
+ggplot(final_data, aes(sex, bmi)) + geom_boxplot() + 
+  ggtitle("Participants' BMI by Sex (N = 4237)") + labs(x = "Sex", y= "BMI")
 
-ggplot(final_data, aes(counseling, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Mental Health Counseling Status by Sex (N=4237)") + labs(x = "Counseling", y = "Count")
-ggplot(final_data, aes(cesd, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Depressive Symptoms by Sex (N=4237)") + labs(x = "Depressive Symptoms", y = "Count")
-ggplot(final_data, aes(suicide_thoughts, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Suicidal Thoughts Status by Sex (N=4237)") + labs(x = "Suicidal Thoughts", y = "Count")
+ggplot(final_data, aes(counseling, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Mental Health Counseling Status by Sex (N=4237)") + 
+  labs(x = "Counseling", y = "Count")
+ggplot(final_data, aes(cesd, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Depressive Symptoms by Sex (N=4237)") + 
+  labs(x = "Depressive Symptoms", y = "Count")
+ggplot(final_data, aes(suicide_thoughts, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Suicidal Thoughts Status by Sex (N=4237)") + 
+  labs(x = "Suicidal Thoughts", y = "Count")
 
-ggplot(final_data, aes(cig_days, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Cigarette Smoking Frequency in the Last 30 Days by Sex (N=4237)") + labs(x = "Smoking Status", y = "Count")
-ggplot(final_data, aes(alcohol_days, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Alcohol Frequency in the Last 30 Days by Sex (N=4237)") + labs(x = "Alcohol Status", y = "Count")
-ggplot(final_data, aes(mari_days, fill = sex)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Paired") + ggtitle("Participants' Marijuana-Use Frequency in the Last 30 Days by Sex (N=4237)") + labs(x = "Marijuana Status", y = "Count")
+ggplot(final_data, aes(cig_days, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Cigarette Smoking Frequency in the Last 30 Days by Sex (N=4237)") + 
+  labs(x = "Smoking Status", y = "Count")
+ggplot(final_data, aes(alcohol_days, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Alcohol Frequency in the Last 30 Days by Sex (N=4237)") + 
+  labs(x = "Alcohol Status", y = "Count")
+ggplot(final_data, aes(mari_days, fill = sex)) + geom_bar(position = "dodge") + 
+  scale_fill_brewer(palette = "Paired") + 
+  ggtitle("Participants' Marijuana-Use Frequency in the Last 30 Days by Sex (N=4237)") + 
+  labs(x = "Marijuana Status", y = "Count")
 
 ```
 
@@ -505,7 +548,7 @@ bon_OR <- function(formula) {
 }
 ```
 
-The following functions were developed to run the various logistic regression models required for the final analysis. Since this project examines the same exposure on a multitude of outcomes, the probability of experiencing a type I error is high. A type I error is the occurrence of a false positive, or when an association is found to be significant when it is not in reality. The probability of experiencing this error becomes very large the more hypothesis tests, or regression analyses, are run. As such, in addition to conducting standard logistic regression models, the regression has also been run while including a Bonferroni Correction. The Bonferroni Correction generates a more conservative alpha value to be used to assess significance of an association. It is typically calculated by dividing the standard alpha value, typically 0.05, by the number of tests being run. For this project there are 8 total associations being tested. The Bonferroni-corrected significance value is 0.05/8 = 0.00625. In order to develop the needed confidence intervals for the odds ratios, a significance value of 0.005 was utilized and 99% confidence intervals were created.
+The following functions were developed to run the various logistic regression models required for the final analysis. Since this project examines the same exposure on a multitude of outcomes, the probability of experiencing a type I error is high. A type I error is the occurrence of a false positive, or when an association is found to be significant when it is not in reality. The probability of experiencing this error becomes very large the more hypothesis tests, or regression analyses, are run. As such, in addition to conducting standard logistic regression models, the regression has also been run while including a Bonferroni Correction. The Bonferroni Correction generates a more conservative alpha value to be used to assess significance of an association. It is calculated by dividing the standard alpha value, typically 0.05, by the number of tests being run. For this project there are 8 total associations being tested. The Bonferroni-corrected significance value is 0.05/8 = 0.00625. In order to develop the needed confidence intervals for the odds ratios, a significance value of 0.005 was utilized and 99% confidence intervals were created.
 
 #### Unadjusted Physical Health \~ Exposure
 
@@ -730,7 +773,7 @@ The forest plot above provides a visual representation of the resulting Bonferro
 
 ## Conclusion
 
-Based on the above results, it can be concluded that there seems to be a positive association between experience with the carceral system before age 18 and negative health outcomes. Specifically, participants who were arrested or incarcerated before the age of 18 had lower odds of reporting that they considered their health Excellent or Good. Additionally, they were associated with worse mental health outcomes such as high depressive symptoms and suicidal thoughts. They also utilized cigarettes, alcohol, and marijuana more than individuals who did not experience arrest or incarceration in childhood. When considering the descriptive tables, it seems as though individuals with the exposure were more likely to have utilized drugs at some point in their lives. They also had higher rates of diagnosed health outcomes such as diabetes, ptsd, and adhd. The most common reason for childhood arrest was theft or an alcohol-related charge.
+Based on the above results, it can be concluded that there seems to be a positive association between experience with the carceral system before age 18 and negative health outcomes. Specifically, participants who were arrested or incarcerated before the age of 18 had higher odds of receiving psychological/ or emotional counseling, more depressive symptoms, and experiencing suicidal thoughts. They also utilized cigarettes and marijuana more than individuals who did not experience arrest or incarceration in childhood. When considering the descriptive tables, it seems as though individuals with the exposure were more likely to have utilized drugs at some point in their lives. They also had higher rates of diagnosed health outcomes such as diabetes, ptsd, and adhd. The most common reason for childhood arrest was theft or an alcohol-related charge.
 
 ## Discussion
 
